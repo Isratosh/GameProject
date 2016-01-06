@@ -20,14 +20,20 @@ public class MainMenu implements  ActionListener{
 	JButton playButt, exitButt;
 	JPanel buttPanel, totalGUI, picPanel;
 	TextDemo game;
+	static int visibleCheck;
+	
+	static JFrame frame = new JFrame("Kingdom Fall");
 
 	/**
 	 * @param args
 	 * @throws IOException 
 	 */
-   	String path = "C:/Users/johnberg/Pictures/test.png";
     
-
+	public void visible() 
+	{
+		frame.setVisible(false);
+		
+	}
 	 public JPanel createContentPane () throws IOException{
 	        JPanel totalGUI = new JPanel();
 	        totalGUI.setLayout(null);
@@ -40,44 +46,34 @@ public class MainMenu implements  ActionListener{
 	        playButt = new JButton("PLAY");
 	        playButt.setLocation(0,0);
 	        playButt.setSize(300,100);
+	        playButt.addActionListener(this);
 	        buttPanel.add(playButt);
 	        
 	        exitButt = new JButton("EXIT");
 	        exitButt.setLocation(0,110);
 	        exitButt.setSize(300,100);
+	        exitButt.addActionListener(this);
 	        buttPanel.add(exitButt);
-	        
-		    final File file = new File(path);
-		    Image img = ImageIO.read(file);
 		    
 		    picPanel = new JPanel();
 	       	picPanel.setSize(1920,1080);
 	       	picPanel.setLocation(0,0);
 	       	picPanel.setVisible(true);
-	       	picPanel.setForeground(img);
+	       	picPanel.setBackground(Color.GREEN);
 	       	totalGUI.add(picPanel);
-	       
-
-
-	        
-	        
 			return totalGUI;
 	
 	 }
-	   	public void paint(Graphics g) 
-	   	{
-	   		g.drawImage(, 0, 0, null);
-	   	}
+
 	 private static void createAndShowGUI1() throws IOException {
 
 	        JFrame.setDefaultLookAndFeelDecorated(true);
-	        JFrame frame = new JFrame("Kingdom Fall");
 	        MainMenu demo = new MainMenu();
 	        frame.setContentPane(demo.createContentPane());
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setSize(1920,1080);
 	        frame.setVisible(true);
-	        frame.setBackground(Color.BLACK);
+	        frame.setBackground(Color.BLACK);        
 	 }
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -87,7 +83,12 @@ public class MainMenu implements  ActionListener{
         JLabel label = new JLabel(new ImageIcon(image));*/
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-            	createAndShowGUI1();
+            	try {
+					createAndShowGUI1();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 		}
@@ -95,20 +96,30 @@ public class MainMenu implements  ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-    	if(e.getSource() == playButt) {
-		game = new TextDemo();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	try {
-					TextDemo.createAndShowGUI();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+    	if(e.getSource() == playButt) 
+    	{
+        	visible();
+        	game = new TextDemo();
+        	javax.swing.SwingUtilities.invokeLater(new Runnable() 
+        	{
+        		public void run() 
+        		{
+        			try 
+        			{
+            			TextDemo.createAndShowGUI();
+        			} catch (IOException e) 
+        			{
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
             }
             
         });
 	}
+    if(e.getSource() == exitButt) 
+    {
+    	System.exit(0);
+    }
 
 }
 }
