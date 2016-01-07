@@ -67,7 +67,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     static void createAndShowGUI() {
         //Create and set up the window.
     	if(MainMenu.isActive == false) {
-        JFrame frame = new JFrame("TextDemo");
+        JFrame frame = new JFrame("Kingdom Feller");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add contents to the window.
