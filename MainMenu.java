@@ -19,7 +19,7 @@ public class MainMenu extends JPanel implements  ActionListener{
 	JButton playButt, exitButt;
 	JPanel buttPanel, exitPanel, totalGUI, picPanel;
 	JLabel picLabel;
-	TextDemo game;
+	KFTextBox game;
 	Image BackgroundFirst;
 	static String dir = System.getProperty("user.dir");
 	static int visibleCheck;
@@ -113,12 +113,12 @@ public class MainMenu extends JPanel implements  ActionListener{
     	if(e.getSource() == playButt) 
     	{
         	visible();
-        	game = new TextDemo();
+        	game = new KFTextBox();
         	javax.swing.SwingUtilities.invokeLater(new Runnable() 
         	{
         		public void run() 
         		{
-        			TextDemo.createAndShowGUI();
+        			KFTextBox.createAndShowGUI();
             }
             
         });
