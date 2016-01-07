@@ -1,28 +1,29 @@
 package project;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import project.TextDemo;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MainMenu implements  ActionListener{
+public class MainMenu extends JPanel implements  ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton playButt, exitButt;
-	JPanel buttPanel, totalGUI, picPanel;
+	JPanel buttPanel, exitPanel, totalGUI, picPanel;
+	JLabel picLabel;
 	TextDemo game;
+	Image BackgroundFirst;
 	static int visibleCheck;
 	
-	static JFrame frame = new JFrame("Kingdom Fall");
+	static JFrame frame = new JFrame("Kingdom Fall Launcher");
 
 	/**
 	 * @param args
@@ -34,14 +35,24 @@ public class MainMenu implements  ActionListener{
 		frame.setVisible(false);
 		
 	}
+	public static void textDemoVisible() 
+	{
+		frame.setVisible(true);
+	}
 	 public JPanel createContentPane () throws IOException{
 	        JPanel totalGUI = new JPanel();
 	        totalGUI.setLayout(null);
 	        buttPanel = new JPanel();
 	        buttPanel.setLayout(null);
 	        buttPanel.setLocation(860,440);
-	        buttPanel.setSize(300,500);
+	        buttPanel.setSize(300,100);
 	        totalGUI.add(buttPanel);
+	        
+	        exitPanel = new JPanel();
+	        exitPanel.setLayout(null);
+	        exitPanel.setLocation(860,550);
+	        exitPanel.setSize(300,100);
+	        totalGUI.add(exitPanel);
 	        
 	        playButt = new JButton("PLAY");
 	        playButt.setLocation(0,0);
@@ -50,17 +61,23 @@ public class MainMenu implements  ActionListener{
 	        buttPanel.add(playButt);
 	        
 	        exitButt = new JButton("EXIT");
-	        exitButt.setLocation(0,110);
+	        exitButt.setLocation(0,0);
 	        exitButt.setSize(300,100);
 	        exitButt.addActionListener(this);
-	        buttPanel.add(exitButt);
+	        exitPanel.add(exitButt);
 		    
 		    picPanel = new JPanel();
 	       	picPanel.setSize(1920,1080);
 	       	picPanel.setLocation(0,0);
 	       	picPanel.setVisible(true);
-	       	picPanel.setBackground(Color.GREEN);
 	       	totalGUI.add(picPanel);
+	       	
+	       	picLabel = new JLabel();
+	       	picLabel.setSize(1920,1080);
+	       	picLabel.setLocation(0,0);
+	       	picLabel.setVisible(true);
+	       	picLabel.setIcon(new ImageIcon("C:\\Users\\jwber\\Pictures\\test.png"));
+	       	picPanel.add(picLabel);
 			return totalGUI;
 	
 	 }
@@ -76,11 +93,6 @@ public class MainMenu implements  ActionListener{
 	        frame.setBackground(Color.BLACK);        
 	 }
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-        /*String path = "C:/Users/johnberg/Pictures/test.png";
-        final File file = new File(path);
-        BufferedImage image = ImageIO.read(file);
-        JLabel label = new JLabel(new ImageIcon(image));*/
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
@@ -104,14 +116,7 @@ public class MainMenu implements  ActionListener{
         	{
         		public void run() 
         		{
-        			try 
-        			{
-            			TextDemo.createAndShowGUI();
-        			} catch (IOException e) 
-        			{
-        				// TODO Auto-generated catch block
-        				e.printStackTrace();
-        			}
+        			TextDemo.createAndShowGUI();
             }
             
         });
