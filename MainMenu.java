@@ -94,7 +94,6 @@ public class MainMenu extends JPanel implements  ActionListener{
 	        frame.setBackground(Color.BLACK);        
 	 }
 	public static void main(String[] args) throws IOException {
-		System.out.println(dir + "\\Pictures\\test.png");
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
