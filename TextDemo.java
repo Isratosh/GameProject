@@ -53,6 +53,10 @@ public class TextDemo extends JPanel implements ActionListener {
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         	order = 2;
         }
+        if(text.contains("EXIT")) 
+        {
+        	MainMenu.textDemoVisible();
+        }
     }
     static void createAndShowGUI() {
         //Create and set up the window.
