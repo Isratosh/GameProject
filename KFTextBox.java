@@ -6,13 +6,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class TextDemo extends JPanel implements ActionListener {
+public class KFTextBox extends JPanel implements ActionListener {
 	int order = 0;
     protected JTextField textField;
     protected JTextArea textArea;
     private final static String newline = "\n";
 
-    public TextDemo() {
+    public KFTextBox() {
         super(new GridBagLayout());
 
         textField = new JTextField(20);
@@ -71,7 +71,7 @@ public class TextDemo extends JPanel implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add contents to the window.
-        frame.add(new TextDemo());
+        frame.add(new KFTextBox());
 
         //Display the window.
         frame.pack();
