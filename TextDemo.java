@@ -1,4 +1,3 @@
-
 package project;
 
 /* TextDemo.java requires no other files. */
@@ -45,21 +44,29 @@ public class TextDemo extends JPanel implements ActionListener {
         	//was a selection in the text area.
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         	order = 1;
-        }
+        } else 
         if (text.contains("better") && order == 1 || text.contains("feeling") && order == 1) 
         {
         	textArea.append("Yeah, enough to work at least! \n How is your wife doing?");
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         	order = 2;
-        }
+        } else 
         if(text.contains("EXIT")) 
         {
         	MainMenu.textDemoVisible();
+        	textField.selectAll();
+        } else 
+        {
+        	textArea.append("Sorry, but that is not a valid response.\n");
+        	textField.selectAll();
+        	textArea.setCaretColor(Color.GREEN);
+        	textArea.setCaretPosition(textArea.getDocument().getLength());
         }
     }
     static void createAndShowGUI() {
         //Create and set up the window.
+    	if(MainMenu.isActive == false) {
         JFrame frame = new JFrame("TextDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -69,6 +76,8 @@ public class TextDemo extends JPanel implements ActionListener {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        MainMenu.isActive = true;
+    	}
     }
 
     /**
@@ -81,6 +90,12 @@ public class TextDemo extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
+    	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
