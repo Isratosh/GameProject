@@ -12,10 +12,11 @@ public class Item {
 		// TODO Auto-generated method stub
 
 	}
-	public Item(String defName, String defLongDesc)
+	public Item(String defName, String defShortDesc, String defLongDesc)
 	{
 		longDesc = defLongDesc;
 		name = defName;
+		shortDesc = defShortDesc;
 	}
 	
 	public void changeLongDesc(String newDesc)
