@@ -19,9 +19,11 @@ public class MainMenu extends JPanel implements  ActionListener{
 	JButton playButt, exitButt;
 	JPanel buttPanel, exitPanel, totalGUI, picPanel;
 	JLabel picLabel;
-	TextDemo game;
+	KFTextBox game;
 	Image BackgroundFirst;
+	static String dir = System.getProperty("user.dir");
 	static int visibleCheck;
+	static boolean isActive = false;
 	
 	static JFrame frame = new JFrame("Kingdom Fall Launcher");
 
@@ -32,8 +34,7 @@ public class MainMenu extends JPanel implements  ActionListener{
     
 	public void visible() 
 	{
-		frame.setVisible(false);
-		
+		frame.setVisible(false);		
 	}
 	public static void textDemoVisible() 
 	{
@@ -76,7 +77,7 @@ public class MainMenu extends JPanel implements  ActionListener{
 	       	picLabel.setSize(1920,1080);
 	       	picLabel.setLocation(0,0);
 	       	picLabel.setVisible(true);
-	       	picLabel.setIcon(new ImageIcon("C:\\Users\\jwber\\Pictures\\test.png"));
+	       	picLabel.setIcon(new ImageIcon(dir + "\\Pictures\\menuPicture.png"));
 	       	picPanel.add(picLabel);
 			return totalGUI;
 	
@@ -111,12 +112,12 @@ public class MainMenu extends JPanel implements  ActionListener{
     	if(e.getSource() == playButt) 
     	{
         	visible();
-        	game = new TextDemo();
+        	game = new KFTextBox();
         	javax.swing.SwingUtilities.invokeLater(new Runnable() 
         	{
         		public void run() 
         		{
-        			TextDemo.createAndShowGUI();
+        			KFTextBox.createAndShowGUI();
             }
             
         });
