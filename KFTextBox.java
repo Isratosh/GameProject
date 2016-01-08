@@ -7,10 +7,16 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class KFTextBox extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int order = 0;
     protected JTextField textField;
     protected JTextArea textArea;
     private final static String newline = "\n";
+    
+   
 
     public KFTextBox() {
         super(new GridBagLayout());
@@ -33,36 +39,63 @@ public class KFTextBox extends JPanel implements ActionListener {
         c.weightx = 1.0; 
         c.weighty = 1.0;
         add(scrollPane, c);
+        startUp();
+    }
+    private void startUp() 
+    {
+    	textArea.append("You find yourself in a room, you don't know how or why you got there." + newline);
     }
 
     public void actionPerformed(ActionEvent evt) {
-        String text = textField.getText();
-        if (text.contains("Bob") && order == 0) {
-        	textArea.append("Hey there Ivan!" + newline);
+        String text = textField.getText().toLowerCase();
+        if (text.contains("look around")) {
+        	textArea.append(House.getItemShortDescs());
         	textField.selectAll();
         	//Make sure the new text is visible, even if there
         	//was a selection in the text area.
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        	order = 1;
         } else 
-        if (text.contains("better") && order == 1 || text.contains("feeling") && order == 1) 
+        if (text.contains("examine ")) 
         {
-        	textArea.append("Yeah, enough to work at least! \n How is your wife doing?");
+        	String[] split = text.split(" ");
+        	String newVar = split[1];
+        	switch(newVar) 
+        	{
+        	case "doormat":
+        		textArea.append(House.getSpecItem(House.DOORMAT).getLongDesc() + newline);
+        		break;
+        	case "table":
+        		textArea.append(House.getSpecItem(House.TABLE).getLongDesc() + newline);
+        		break;
+        	case "book":
+        		textArea.append(House.getSpecItem(House.BOOK).getLongDesc() + newline);
+        		break;
+        	case "chest":
+        		textArea.append(House.getSpecItem(House.CHEST).getLongDesc() + newline);
+        		break;
+        	default:
+        		textArea.append("I can't see a \"" + newVar + "\" in this room." + newline);
+        		break;
+        	}
+        	//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        	order = 2;
         } else 
-        if(text.contains("EXIT")) 
+        if(text.contains("/exit")) 
         {
         	MainMenu.textDemoVisible();
         	textField.selectAll();
-        } else 
+        } else
+        if(text.contains("/help")) 
+        {
+        	textArea.append(House.getHelp() + newline);
+        } else
         {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
         	textArea.setCaretColor(Color.GREEN);
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        }
+        } 
     }
     static void createAndShowGUI() {
         //Create and set up the window.
@@ -89,6 +122,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
+    	 House.main(args);
 		// TODO Auto-generated method stub
     	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
