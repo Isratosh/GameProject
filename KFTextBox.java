@@ -15,6 +15,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     protected JTextField textField;
     protected JTextArea textArea;
     private final static String newline = "\n";
+    public static String curRoom;
     
    
 
@@ -44,6 +45,25 @@ public class KFTextBox extends JPanel implements ActionListener {
     private void startUp() 
     {
     	textArea.append("You find yourself in a room, you don't know how or why you got there." + newline);
+    }
+    public void curRoom() 
+    {
+    	if(House.isActive == true) 
+    	{
+    		curRoom = "House";
+    	} else if(Dungeon.isActive == true) 
+    	{
+    		curRoom = "Dungeon";
+    	} else if(MainHall.isActive == true)
+    	{
+    		curRoom = "MainHall";
+    	} else if(ThroneRoom.isActive == true) 
+    	{
+    		curRoom = "ThroneRoom";
+    	} else 
+    	{
+    		System.out.println("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM");
+    	}
     }
 
     public void actionPerformed(ActionEvent evt) {
@@ -76,7 +96,16 @@ public class KFTextBox extends JPanel implements ActionListener {
         	default:
         		textArea.append("I can't see a \"" + newVar + "\" in this room." + newline);
         		break;
-        	}
+        	}} else
+        	if(text.contains("read book")) {
+        		textArea.append("The title of the book is \"To Kill a King\" It was written by Prince Ragoolaman" + newline);
+        		textArea.append("Chapter 1: The Games Begin" + newline);
+        		textArea.append("The controls are simply your keyboard. What the game tells you doesn't provide rigid options. You type things that you think could work, and if they don't you will be notified." + newline);
+        		textArea.append("The commands are as follows. To return to the main menu, simply type \"/exit\" And to get vague hints one just needs to type \"/help\"" + newline);
+        		textArea.append("The remainder of the princes novel has been ripped out, hence the broken spine." + newline);
+        		textArea.append("All that remains past the first chapter is the final page, it has the words \"Meet me at the castle when you arrive. regards, P.R. \nP.S. I left your key under the doormat!\" scrawled into it." + newline + newline);
+        		textArea.append("You can't remember who P.R. is, but you feel like they is important, and that you should meet them with all haste!" + newline);
+        		textArea.append("You suddenly remember that you leave your house by typing \"leave (destination)\"however, you shouldn't leave here without your sword... Now where did you leave it again?");
         	//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
@@ -89,11 +118,11 @@ public class KFTextBox extends JPanel implements ActionListener {
         if(text.contains("/help")) 
         {
         	textArea.append(House.getHelp() + newline);
+        	textField.selectAll();
         } else
         {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
-        	textArea.setCaretColor(Color.GREEN);
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         } 
     }
