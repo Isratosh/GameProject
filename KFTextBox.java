@@ -16,6 +16,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     protected JTextArea textArea;
     private final static String newline = "\n";
     public static String curRoom;
+    private static String newVar;
     
    
 
@@ -46,20 +47,32 @@ public class KFTextBox extends JPanel implements ActionListener {
     {
     	textArea.append("You find yourself in a room, you don't know how or why you got there." + newline);
     }
-    public void curRoom() 
+    public static void curRoom() 
     {
     	if(House.isActive == true) 
     	{
     		curRoom = "House";
+    		Dungeon.isActive = false;
+    		MainHall.isActive = false;
+    		ThroneRoom.isActive = false;
     	} else if(Dungeon.isActive == true) 
     	{
     		curRoom = "Dungeon";
+    		House.isActive = false;
+    		MainHall.isActive = false;
+    		ThroneRoom.isActive = false;
     	} else if(MainHall.isActive == true)
     	{
     		curRoom = "MainHall";
+    		Dungeon.isActive = false;
+    		House.isActive = false;
+    		ThroneRoom.isActive = false;
     	} else if(ThroneRoom.isActive == true) 
     	{
     		curRoom = "ThroneRoom";
+    		Dungeon.isActive = false;
+    		MainHall.isActive = false;
+    		House.isActive = false;
     	} else 
     	{
     		System.out.println("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM");
@@ -78,10 +91,24 @@ public class KFTextBox extends JPanel implements ActionListener {
         if (text.contains("examine ")) 
         {
         	String[] split = text.split(" ");
-        	String newVar = split[1];
-        	switch(newVar) 
+        	newVar = split[1];
+        	int tester = 1;
+    		switch(curRoom) 
+    		{
+    		case "House":
+    			textArea.append(House.getSpecItem(KFTextBox.newVar).getLongDesc() + newline);
+    			break;
+    		case "MainHall":
+    			break;
+    		case "ThroneRoom":
+    			break;
+    		case "Dungeon":
+    			break;
+    		}
+    		
+        	/*switch(newVar) 
         	{
-        	case "doormat":
+        	case newVar:
         		textArea.append(House.getSpecItem(House.DOORMAT).getLongDesc() + newline);
         		break;
         	case "table":
@@ -96,13 +123,17 @@ public class KFTextBox extends JPanel implements ActionListener {
         	default:
         		textArea.append("I can't see a \"" + newVar + "\" in this room." + newline);
         		break;
-        	}} else
+        	}*/} else
         	if(text.contains("read book")) {
-        		textArea.append(House.itemUsed(House.BOOK).itemUsePrint());
+        		textArea.append(House.itemUsed(House.BOOK).itemUsedItem());
         		//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         } else 
+        if(text.contains("look under mat")) 
+        {
+        	textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
+        } else
         if(text.contains("/exit")) 
         {
         	MainMenu.textDemoVisible();
@@ -144,7 +175,10 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
-    	 House.main(args);
+    	 House.setup();
+    	 House.isActive = true;
+    	 curRoom();
+    	 System.out.println(curRoom);
 		// TODO Auto-generated method stub
     	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
