@@ -82,7 +82,25 @@ public class KFTextBox extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText().toLowerCase();
         if (text.contains("look around")) {
-        	textArea.append(House.getItemShortDescs());
+    		switch(curRoom) 
+    		{
+    		case "House":
+    			textArea.append(House.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		case "MainHall":
+    			//textArea.append(MainHall.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		case "ThroneRoom":
+    			//textArea.append(ThroneRoom.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		case "Dungeon":
+    			//textArea.append(Dungeon.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		}
         	textField.selectAll();
         	//Make sure the new text is visible, even if there
         	//was a selection in the text area.
@@ -96,6 +114,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     		{
     		case "House":
     			textArea.append(House.getSpecItem(newVar).getLongDesc() + newline);
+    			textField.selectAll();
     			break;
     		case "MainHall":
     			break;
@@ -105,24 +124,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     			break;
     		}
     		
-        	/*switch(newVar) 
-        	{
-        	case newVar:
-        		textArea.append(House.getSpecItem(House.DOORMAT).getLongDesc() + newline);
-        		break;
-        	case "table":
-        		textArea.append(House.getSpecItem(House.TABLE).getLongDesc() + newline);
-        		break;
-        	case "book":
-        		textArea.append(House.getSpecItem(House.BOOK).getLongDesc() + newline);
-        		break;
-        	case "chest":
-        		textArea.append(House.getSpecItem(House.CHEST).getLongDesc() + newline);
-        		break;
-        	default:
-        		textArea.append("I can't see a \"" + newVar + "\" in this room." + newline);
-        		break;
-        	}*/} else
+        	} else
         	if(text.contains("read book")) {
         		textArea.append(House.itemUsed(House.BOOK).itemUsedItem());
         		//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
@@ -151,6 +153,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     }
     static void createAndShowGUI() {
         //Create and set up the window.
+    	//House.setup();
     	if(MainMenu.isActive == false) {
         JFrame frame = new JFrame("Kingdom Feller");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -174,7 +177,6 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
-    	 House.setup();
     	 House.isActive = true;
     	 curRoom();
     	 System.out.println(curRoom);
@@ -185,6 +187,7 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+    	House.setup();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
