@@ -7,10 +7,18 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class KFTextBox extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int order = 0;
     protected JTextField textField;
     protected JTextArea textArea;
     private final static String newline = "\n";
+    public static String curRoom;
+    private static String newVar;
+    
+   
 
     public KFTextBox() {
         super(new GridBagLayout());
@@ -33,39 +41,119 @@ public class KFTextBox extends JPanel implements ActionListener {
         c.weightx = 1.0; 
         c.weighty = 1.0;
         add(scrollPane, c);
+        startUp();
+    }
+    private void startUp() 
+    {
+    	textArea.append("You find yourself in a room, you don't know how or why you got there." + newline);
+    }
+    public static void curRoom() 
+    {
+    	if(House.isActive == true) 
+    	{
+    		curRoom = "House";
+    		Dungeon.isActive = false;
+    		MainHall.isActive = false;
+    		ThroneRoom.isActive = false;
+    	} else if(Dungeon.isActive == true) 
+    	{
+    		curRoom = "Dungeon";
+    		House.isActive = false;
+    		MainHall.isActive = false;
+    		ThroneRoom.isActive = false;
+    	} else if(MainHall.isActive == true)
+    	{
+    		curRoom = "MainHall";
+    		Dungeon.isActive = false;
+    		House.isActive = false;
+    		ThroneRoom.isActive = false;
+    	} else if(ThroneRoom.isActive == true) 
+    	{
+    		curRoom = "ThroneRoom";
+    		Dungeon.isActive = false;
+    		MainHall.isActive = false;
+    		House.isActive = false;
+    	} else 
+    	{
+    		System.out.println("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM");
+    	}
     }
 
     public void actionPerformed(ActionEvent evt) {
-        String text = textField.getText();
-        if (text.contains("Bob") && order == 0) {
-        	textArea.append("Hey there Ivan!" + newline);
+        String text = textField.getText().toLowerCase();
+        if (text.contains("look around")) {
+    		switch(curRoom) 
+    		{
+    		case "House":
+    			textArea.append(House.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		case "MainHall":
+    			//textArea.append(MainHall.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		case "ThroneRoom":
+    			//textArea.append(ThroneRoom.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		case "Dungeon":
+    			//textArea.append(Dungeon.getItemShortDescs());
+    			textField.selectAll();
+    			break;
+    		}
         	textField.selectAll();
         	//Make sure the new text is visible, even if there
         	//was a selection in the text area.
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        	order = 1;
         } else 
-        if (text.contains("better") && order == 1 || text.contains("feeling") && order == 1) 
+        if (text.contains("examine ")) 
         {
-        	textArea.append("Yeah, enough to work at least! \n How is your wife doing?");
+        	String[] split = text.split(" ");
+        	newVar = split[1];
+    		switch(curRoom) 
+    		{
+    		case "House":
+    			textArea.append(House.getSpecItem(newVar).getLongDesc() + newline);
+    			textField.selectAll();
+    			break;
+    		case "MainHall":
+    			break;
+    		case "ThroneRoom":
+    			break;
+    		case "Dungeon":
+    			break;
+    		}
+    		
+        	} else
+        	if(text.contains("read book")) {
+        		textArea.append(House.itemUsed(House.BOOK).itemUsedItem());
+        		//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        	order = 2;
         } else 
-        if(text.contains("EXIT")) 
+        if(text.contains("look under mat")) 
+        {
+        	textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
+        } else
+        if(text.contains("/exit")) 
         {
         	MainMenu.textDemoVisible();
         	textField.selectAll();
-        } else 
+        } else
+        if(text.contains("/help")) 
+        {
+        	textArea.append(House.getHelp() + newline);
+        	textField.selectAll();
+        } else
         {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
-        	textArea.setCaretColor(Color.GREEN);
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        }
+        } 
     }
     static void createAndShowGUI() {
         //Create and set up the window.
+    	//House.setup();
     	if(MainMenu.isActive == false) {
         JFrame frame = new JFrame("Kingdom Feller");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,6 +177,9 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
+    	 House.isActive = true;
+    	 curRoom();
+    	 System.out.println(curRoom);
 		// TODO Auto-generated method stub
     	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
@@ -96,6 +187,7 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+    	House.setup();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
