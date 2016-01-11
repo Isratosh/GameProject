@@ -2,9 +2,18 @@ package project;
 
 /* TextDemo.java requires no other files. */
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import project.*;
+
 
 public class KFTextBox extends JPanel implements ActionListener {
 	/**
@@ -17,6 +26,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     private final static String newline = "\n";
     public static String curRoom;
     private static String newVar;
+    public boolean hasKey = false;
     
    
 
@@ -133,7 +143,15 @@ public class KFTextBox extends JPanel implements ActionListener {
         } else 
         if(text.contains("look under mat")) 
         {
+        	if(hasKey == false) {
         	textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
+        	textField.selectAll();
+        	hasKey = true;
+        	}else 
+        	{
+        	textArea.append("You already have the key to the chest! Maybe you should use it..." + newline);
+        	textField.selectAll();
+        	}
         } else
         if(text.contains("/exit")) 
         {
