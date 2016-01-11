@@ -9,6 +9,7 @@ public class House {
 	public static final int KEY = 4;
 	public static final int SWORD = 5;
 	public static final int POISON = 6;	
+	public static int newVar1;
 	
 	private Item[] items;
 	private boolean locked = true;
@@ -84,14 +85,28 @@ public class House {
 		switch(newVar) 
 		{
 		case "doormat":
+			newVar1 = 0;
 			break;
 		case "table":
+			newVar1 = 1;
 			break;
 		case "chest":
+			newVar1 = 2;
 			break;
 		case "book":
+			newVar1 = 3;
+			break;
+		case "key":
+			newVar1 = 4;
+			break;
+		case "sword":
+			newVar1 = 5;
+			break;
+		case "poison":
+			newVar1 = 6;
+			break;
 		}
-		return house.items[newVar];
+		return house.items[newVar1];
 	}
 	public static Item itemUsed(int index) 
 	{
