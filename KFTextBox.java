@@ -92,11 +92,10 @@ public class KFTextBox extends JPanel implements ActionListener {
         {
         	String[] split = text.split(" ");
         	newVar = split[1];
-        	int tester = 1;
     		switch(curRoom) 
     		{
     		case "House":
-    			textArea.append(House.getSpecItem(KFTextBox.newVar).getLongDesc() + newline);
+    			textArea.append(House.getSpecItem(newVar).getLongDesc() + newline);
     			break;
     		case "MainHall":
     			break;
