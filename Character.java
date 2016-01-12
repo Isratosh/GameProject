@@ -5,6 +5,7 @@ public class Character {
 	private String name;
 	private String firstName = "John";//default
 	private String lastName = "Doe";//default
+	private String convText = "Hello!";//default
 	private String questText = "Retrieve the pizza from Pizza Hut and return it to me. I will reward you with cookies and kisses."; //default
 	
 	/**
@@ -12,18 +13,25 @@ public class Character {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Character memeLord = new Character("Meme", "Lord", "Give me the dankest of memes.");
-		System.out.println(memeLord.getFullName());
-		System.out.println(memeLord.getQuestText());
+		
 		
 	}
 
-	public Character(String fName, String lName, String qText)
+	public Character(String fName, String lName, String qText, String cText)
 	{
 		firstName = fName;
 		lastName = lName;
 		name = fName + " " + lName;
 		questText = qText;
+		convText = cText;
+	}
+	
+	public Character(String fName, String lName, String cText)
+	{
+		firstName = fName;
+		lastName = lName;
+		name = fName + " " + lName;
+		convText = cText;
 	}
 	
 	public Character(String fName, String lName)
@@ -32,6 +40,7 @@ public class Character {
 		lastName = lName;
 		name = fName + " " + lName;
 	}
+	
 	
 	public String getFullName()
 	{
