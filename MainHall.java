@@ -11,7 +11,7 @@ public class MainHall {
 	
 	private Item[] items;
 	private static MainHall MainHall;
-	public static boolean isActive = true;
+	public static boolean isActive = false;
 	
 	private Item food;
 	private Item dog;
