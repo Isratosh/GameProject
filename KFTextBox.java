@@ -2,9 +2,18 @@ package project;
 
 /* TextDemo.java requires no other files. */
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import project.*;
+
 
 public class KFTextBox extends JPanel implements ActionListener {
 	/**
@@ -13,10 +22,11 @@ public class KFTextBox extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	int order = 0;
     protected JTextField textField;
-    protected JTextArea textArea;
+    protected static JTextArea textArea;
     private final static String newline = "\n";
     public static String curRoom;
     private static String newVar;
+    public boolean hasKey = false;
     
    
 
@@ -89,7 +99,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textField.selectAll();
     			break;
     		case "MainHall":
-    			//textArea.append(MainHall.getItemShortDescs());
+    			textArea.append(MainHall.getItemShortDescs());
     			textField.selectAll();
     			break;
     		case "ThroneRoom":
@@ -117,6 +127,8 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textField.selectAll();
     			break;
     		case "MainHall":
+    			textArea.append(MainHall.getSpecItem(newVar).getLongDesc() + newline);
+    			textField.selectAll();
     			break;
     		case "ThroneRoom":
     			break;
@@ -133,7 +145,15 @@ public class KFTextBox extends JPanel implements ActionListener {
         } else 
         if(text.contains("look under mat")) 
         {
+        	if(hasKey == false) {
         	textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
+        	textField.selectAll();
+        	hasKey = true;
+        	}else 
+        	{
+        	textArea.append("You already have the key to the chest! Maybe you should use it..." + newline);
+        	textField.selectAll();
+        	}
         } else
         if(text.contains("/exit")) 
         {
@@ -144,12 +164,57 @@ public class KFTextBox extends JPanel implements ActionListener {
         {
         	textArea.append(House.getHelp() + newline);
         	textField.selectAll();
-        } else
+        } if(text.contains("go")) 
+        {
+        	String[] split = text.split(" ");
+        	String leaveVar = split[1];
+        	textField.selectAll();
+        	switch(curRoom) 
+        	{
+        	case "House":
+        		if(House.placeToGo.contains(leaveVar)) 
+        		{
+        			goTo(leaveVar);
+        		}
+        		break;
+        	case "MainHall":
+        		break;
+        	case "ThroneRoom":
+        		break;
+        	case "Dungeon":
+        		break;
+        	}
+        } if (text.contains("/getcuroom")) 
+        {
+        	curRoom();
+        	System.out.println(curRoom); //DEBUG
+        	textField.selectAll();
+        }
+        else
         {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        } 
+        }
+        
+    }
+    public static void goTo(String i) 
+    {
+    	switch(curRoom) 
+    	{
+    	case "House":
+    		House.isActive = false;
+    		MainHall.isActive = true;
+    		curRoom();
+        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+    		break;
+    	case "MainHall":
+    		break;
+    	case "ThroneRoom":
+    		break;
+    	case "Dungeon":
+    		break;
+    	}
     }
     static void createAndShowGUI() {
         //Create and set up the window.
@@ -188,6 +253,9 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
     	House.setup();
+    	MainHall.setup();
+    	Dungeon.setup();
+    	ThroneRoom.setup();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
