@@ -53,21 +53,6 @@ public class KFTextBox extends JPanel implements ActionListener {
         add(scrollPane, c);
         startUp();
     }
-    public static void leavRoom() 
-    {
-    	switch(curRoom) 
-    	{
-    	case "House":
-    		textArea.append("");
-    		break;
-    	case "Dungeon":
-    		break;
-    	case "MainHall":
-    		break;
-    	case "ThroneRoom":
-    		break;
-    	}
-    }
     private void startUp() 
     {
     	textArea.append("You find yourself in a room, you don't know how or why you got there." + newline);
@@ -179,31 +164,57 @@ public class KFTextBox extends JPanel implements ActionListener {
         {
         	textArea.append(House.getHelp() + newline);
         	textField.selectAll();
-        } else
+        } if(text.contains("go")) 
+        {
+        	String[] split = text.split(" ");
+        	String leaveVar = split[1];
+        	textField.selectAll();
+        	switch(curRoom) 
+        	{
+        	case "House":
+        		if(House.placeToGo.contains(leaveVar)) 
+        		{
+        			goTo(leaveVar);
+        		}
+        		break;
+        	case "MainHall":
+        		break;
+        	case "ThroneRoom":
+        		break;
+        	case "Dungeon":
+        		break;
+        	}
+        } if (text.contains("/getcuroom")) 
+        {
+        	curRoom();
+        	System.out.println(curRoom); //DEBUG
+        	textField.selectAll();
+        }
+        else
         {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         }
-        if(text.contains("leave ")) 
-        {
-        	String[] split = text.split(" ");
-        	String leaveVar = split[1];
-        	textArea.append("Are you sure you want to go to" + leaveVar + "?" + newline);
-        	textField.selectAll();
-        	if(text.contains("yes")) 
-        	{
-        		textArea.append("please wait while we load the next area..." + newline);
-        		
-        	} else
-        	if (text.contains("no")) 
-        	{
-        		
-        	} else
-        	{
-        		textArea.append( leaveVar + "is not a valid response." + newline);
-        	}
-        }
+        
+    }
+    public static void goTo(String i) 
+    {
+    	switch(curRoom) 
+    	{
+    	case "House":
+    		House.isActive = false;
+    		MainHall.isActive = true;
+    		curRoom();
+        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+    		break;
+    	case "MainHall":
+    		break;
+    	case "ThroneRoom":
+    		break;
+    	case "Dungeon":
+    		break;
+    	}
     }
     static void createAndShowGUI() {
         //Create and set up the window.
@@ -231,7 +242,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
-    	 House.isActive = false;
+    	 House.isActive = true;
     	 curRoom();
     	 System.out.println(curRoom);
 		// TODO Auto-generated method stub
@@ -243,6 +254,8 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
     	House.setup();
     	MainHall.setup();
+    	Dungeon.setup();
+    	ThroneRoom.setup();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
