@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import project.*;
 
 
 public class KFTextBox extends JPanel implements ActionListener {
@@ -27,6 +26,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     public static String curRoom;
     private static String newVar;
     public boolean hasKey = false;
+    public static String leaveVar;
     
    
 
@@ -167,7 +167,7 @@ public class KFTextBox extends JPanel implements ActionListener {
         } if(text.contains("go")) 
         {
         	String[] split = text.split(" ");
-        	String leaveVar = split[1];
+        	leaveVar = split[1];
         	textField.selectAll();
         	switch(curRoom) 
         	{
@@ -175,16 +175,24 @@ public class KFTextBox extends JPanel implements ActionListener {
         		if(House.placeToGo.contains(leaveVar)) 
         		{
         			goTo(leaveVar);
+        		} else 
+        		{
+        			textArea.append("You can go to: " + House.placeToGo + "from here!");
         		}
         		break;
         	case "MainHall":
+        		if(MainHall.placeToGo.contains(leaveVar)) 
+        		{
+        			goTo(leaveVar);
+        		}
         		break;
         	case "ThroneRoom":
         		break;
         	case "Dungeon":
         		break;
-        	}
-        } if (text.contains("/getcuroom")) 
+        }
+        } else
+        if (text.contains("/getcuroom")) 
         {
         	curRoom();
         	System.out.println(curRoom); //DEBUG
@@ -203,12 +211,33 @@ public class KFTextBox extends JPanel implements ActionListener {
     	switch(curRoom) 
     	{
     	case "House":
-    		House.isActive = false;
-    		MainHall.isActive = true;
-    		curRoom();
-        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+			switch(leaveVar) 
+    		{
+			case "mainhall":
+				House.isActive = false;
+	    		MainHall.isActive = true;
+	    		curRoom();
+	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+				break;
+			case "dungeon":
+				House.isActive = false;
+				Dungeon.isActive = true;
+				curRoom();
+	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+				break;
+			case "throne room":
+				House.isActive = false;
+				ThroneRoom.isActive = true;
+				curRoom();
+	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+				break;
+    		}
     		break;
     	case "MainHall":
+    		MainHall.isActive = false;
+    		House.isActive = true;
+    		curRoom();
+    		textArea.append("You are now in the " + curRoom + " room!" + newline);
     		break;
     	case "ThroneRoom":
     		break;
