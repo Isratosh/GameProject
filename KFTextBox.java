@@ -177,18 +177,35 @@ public class KFTextBox extends JPanel implements ActionListener {
         			goTo(leaveVar);
         		} else 
         		{
-        			textArea.append("You can go to: " + House.placeToGo + "from here!");
+        			textArea.append("You can go to: " + House.placeToGo + "from here!" + newline);
         		}
         		break;
         	case "MainHall":
         		if(MainHall.placeToGo.contains(leaveVar)) 
         		{
         			goTo(leaveVar);
+        		} else 
+        		{
+        			textArea.append("You can go to: " + MainHall.placeToGo + "from here!" + newline);
         		}
         		break;
         	case "ThroneRoom":
+        		if(ThroneRoom.placeToGo.contains(leaveVar)) 
+        		{
+        			goTo(leaveVar);
+        		} else 
+        		{
+        			textArea.append("You can go to: " + ThroneRoom.placeToGo + "from here!" + newline);
+        		}
         		break;
         	case "Dungeon":
+        		if(Dungeon.placeToGo.contains(leaveVar)) 
+        		{
+        			goTo(leaveVar);
+        		} else 
+        		{
+        			textArea.append("You can go to: " + Dungeon.placeToGo + "from here!" + newline);
+        		}
         		break;
         }
         } else
@@ -213,35 +230,58 @@ public class KFTextBox extends JPanel implements ActionListener {
     	case "House":
 			switch(leaveVar) 
     		{
-			case "mainhall":
+			case "main":
 				House.isActive = false;
 	    		MainHall.isActive = true;
 	    		curRoom();
 	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
 				break;
+    		}
+    		break;
+    	case "MainHall":
+    		switch(leaveVar) 
+    		{
+			case "house":
+				MainHall.isActive = false;
+	    		House.isActive = true;
+	    		curRoom();
+	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+				break;
 			case "dungeon":
-				House.isActive = false;
+				MainHall.isActive = false;
 				Dungeon.isActive = true;
 				curRoom();
 	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
 				break;
-			case "throne room":
-				House.isActive = false;
+			case "throne":
+				MainHall.isActive = false;
 				ThroneRoom.isActive = true;
 				curRoom();
 	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
 				break;
     		}
     		break;
-    	case "MainHall":
-    		MainHall.isActive = false;
-    		House.isActive = true;
-    		curRoom();
-    		textArea.append("You are now in the " + curRoom + " room!" + newline);
-    		break;
     	case "ThroneRoom":
+    		switch(leaveVar) 
+    		{
+			case "main":
+				ThroneRoom.isActive = false;
+	    		MainHall.isActive = true;
+	    		curRoom();
+	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+				break;
+    		}
     		break;
     	case "Dungeon":
+    		switch(leaveVar) 
+    		{
+			case "house":
+				Dungeon.isActive = false;
+	    		House.isActive = true;
+	    		curRoom();
+	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+				break;
+    		}
     		break;
     	}
     }
