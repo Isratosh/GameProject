@@ -15,7 +15,7 @@ public class House {
 	private boolean locked = true;
 	private boolean hasKey = false;
 	private static House house;
-	public static boolean isActive = true;
+	public static boolean isActive = false;
 	
 	private Item doorMat;
 	private Item table;
