@@ -22,7 +22,7 @@ public class KFTextBox extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	int order = 0;
     protected JTextField textField;
-    protected JTextArea textArea;
+    protected static JTextArea textArea;
     private final static String newline = "\n";
     public static String curRoom;
     private static String newVar;
@@ -52,6 +52,21 @@ public class KFTextBox extends JPanel implements ActionListener {
         c.weighty = 1.0;
         add(scrollPane, c);
         startUp();
+    }
+    public static void leavRoom() 
+    {
+    	switch(curRoom) 
+    	{
+    	case "House":
+    		textArea.append("");
+    		break;
+    	case "Dungeon":
+    		break;
+    	case "MainHall":
+    		break;
+    	case "ThroneRoom":
+    		break;
+    	}
     }
     private void startUp() 
     {
@@ -99,7 +114,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textField.selectAll();
     			break;
     		case "MainHall":
-    			//textArea.append(MainHall.getItemShortDescs());
+    			textArea.append(MainHall.getItemShortDescs());
     			textField.selectAll();
     			break;
     		case "ThroneRoom":
@@ -127,6 +142,8 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textField.selectAll();
     			break;
     		case "MainHall":
+    			textArea.append(MainHall.getSpecItem(newVar).getLongDesc() + newline);
+    			textField.selectAll();
     			break;
     		case "ThroneRoom":
     			break;
@@ -167,7 +184,26 @@ public class KFTextBox extends JPanel implements ActionListener {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        } 
+        }
+        if(text.contains("leave ")) 
+        {
+        	String[] split = text.split(" ");
+        	String leaveVar = split[1];
+        	textArea.append("Are you sure you want to go to" + leaveVar + "?" + newline);
+        	textField.selectAll();
+        	if(text.contains("yes")) 
+        	{
+        		textArea.append("please wait while we load the next area..." + newline);
+        		
+        	} else
+        	if (text.contains("no")) 
+        	{
+        		
+        	} else
+        	{
+        		textArea.append( leaveVar + "is not a valid response." + newline);
+        	}
+        }
     }
     static void createAndShowGUI() {
         //Create and set up the window.
@@ -195,7 +231,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
-    	 House.isActive = true;
+    	 House.isActive = false;
     	 curRoom();
     	 System.out.println(curRoom);
 		// TODO Auto-generated method stub
@@ -206,6 +242,7 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
     	House.setup();
+    	MainHall.setup();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
