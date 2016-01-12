@@ -12,6 +12,7 @@ public class MainHall {
 	private Item[] items;
 	private static MainHall MainHall;
 	public static boolean isActive = false;
+	public static String placeToGo = "house, throne room, dungeon";
 	
 	private Item food;
 	private Item dog;
