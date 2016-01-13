@@ -94,6 +94,15 @@ public class MainHall {
 		}
 		return theMainHall.items[newVar1];
 	}
+	public static Character[] getCharacters()
+	{
+		return MainHall.characters;
+	}
+	public static Character getSpecCharacter(int index)
+	{
+		return MainHall.characters[index];
+	}
+	
 	public static Item itemUsed(int index) 
 	{
 		return theMainHall.items[index];
