@@ -98,9 +98,19 @@ public class MainHall {
 	{
 		return MainHall.characters;
 	}
-	public static Character getSpecCharacter(int index)
+	public static Character getSpecCharacter(String index)
 	{
-		return MainHall.characters[index];
+		int s;
+		switch(index)
+		{
+		case "bob":
+			s = BOB;
+			break;
+		default:
+			s = BOB;//change this
+			break;
+		}
+		return MainHall.characters[s];
 	}
 	
 	public static Item itemUsed(int index) 
