@@ -1,336 +1,126 @@
 package project;
 
-/* TextDemo.java requires no other files. */
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-
-public class KFTextBox extends JPanel implements ActionListener {
+public class MainHall {
+	//items array index constants
+	public static final int FOOD = 0;
+	public static final int DOG = 1;
+	public static final int PILLAR = 2;
+	public static final int THRONEDOOR = 3;
+	public static final int BOB = 0;
+	
+	public static int newVar1;
+	
+	public static Character[] characters;
+	private Item[] items;
+	private static MainHall theMainHall;
+	public static boolean isActive = false;
+	public static String placeToGo = "house, throne room, dungeon";
+	
+	private Item food;
+	private Item dog;
+	private Item pillar;
+	
+	private Character bob;
+	
 	/**
-	 * 
+	 * @param args
 	 */
-	private static final long serialVersionUID = 1L;
-	int order = 0;
-    protected JTextField textField;
-    protected static JTextArea textArea;
-    private final static String newline = "\n";
-    public static String curRoom;
-    private static String newVar;
-    public boolean hasKey = false;
-    public static String leaveVar;
-    
-   
-
-    public KFTextBox() {
-        super(new GridBagLayout());
-
-        textField = new JTextField(20);
-        textField.addActionListener(this);
-
-        textArea = new JTextArea(5, 20);
-        textArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-
-        //Add Components to this panel.
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.REMAINDER;
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        add(textField, c);
-
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1.0; 
-        c.weighty = 1.0;
-        add(scrollPane, c);
-        startUp();
-    }
-    private void startUp() 
-    {
-    	textArea.append("You find yourself in a room, you don't know how or why you got there." + newline);
-    }
-    public static void curRoom() 
-    {
-    	if(House.isActive == true) 
-    	{
-    		curRoom = "House";
-    		Dungeon.isActive = false;
-    		MainHall.isActive = false;
-    		ThroneRoom.isActive = false;
-    	} else if(Dungeon.isActive == true) 
-    	{
-    		curRoom = "Dungeon";
-    		House.isActive = false;
-    		MainHall.isActive = false;
-    		ThroneRoom.isActive = false;
-    	} else if(MainHall.isActive == true)
-    	{
-    		curRoom = "MainHall";
-    		Dungeon.isActive = false;
-    		House.isActive = false;
-    		ThroneRoom.isActive = false;
-    	} else if(ThroneRoom.isActive == true) 
-    	{
-    		curRoom = "ThroneRoom";
-    		Dungeon.isActive = false;
-    		MainHall.isActive = false;
-    		House.isActive = false;
-    	} else 
-    	{
-    		System.out.println("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM");
-    	}
-    }
-
-    public void actionPerformed(ActionEvent evt) {
-        String text = textField.getText().toLowerCase();
-        if (text.contains("look around")) {
-    		switch(curRoom) 
-    		{
-    		case "House":
-    			textArea.append(House.getItemShortDescs());
-    			textField.selectAll();
-    			break;
-    		case "MainHall":
-    			textArea.append(MainHall.getItemShortDescs());
-    			textField.selectAll();
-    			break;
-    		case "ThroneRoom":
-    			textArea.append(ThroneRoom.getItemShortDescs());
-    			textField.selectAll();
-    			break;
-    		case "Dungeon":
-    			textArea.append(Dungeon.getItemShortDescs());
-    			textField.selectAll();
-    			break;
-    		}
-        	textField.selectAll();
-        	//Make sure the new text is visible, even if there
-        	//was a selection in the text area.
-        	textArea.setCaretPosition(textArea.getDocument().getLength());
-        } else 
-        if (text.contains("examine ")) 
-        {
-        	String[] split = text.split(" ");
-        	newVar = split[1];
-    		switch(curRoom) 
-    		{
-    		case "House":
-    			textArea.append(House.getSpecItem(newVar).getLongDesc() + newline);
-    			textField.selectAll();
-    			break;
-    		case "MainHall":
-    			textArea.append(MainHall.getSpecItem(newVar).getLongDesc() + newline);
-    			textField.selectAll();
-    			break;
-    		case "ThroneRoom":
-    			break;
-    		case "Dungeon":
-    			break;
-    		}
-    		
-        	} else
-        	if(text.contains("read book")) {
-        		textArea.append(House.itemUsed(House.BOOK).itemUsedItem());
-        		//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
-        	textField.selectAll();
-        	textArea.setCaretPosition(textArea.getDocument().getLength());
-        } else 
-        if(text.contains("look under mat")) 
-        {
-        	if(hasKey == false) {
-        	textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
-        	textField.selectAll();
-        	hasKey = true;
-        	}else 
-        	{
-        	textArea.append("You already have the key to the chest! Maybe you should use it..." + newline);
-        	textField.selectAll();
-        	}
-        } else
-        if(text.contains("/exit")) 
-        {
-        	MainMenu.textDemoVisible();
-        	textField.selectAll();
-        } else
-        if(text.contains("/help")) 
-        {
-        	textArea.append(House.getHelp() + newline);
-        	textField.selectAll();
-        } else
-        if(text.contains("go")) 
-        {
-        	String[] split = text.split(" ");
-        	leaveVar = split[1];
-        	textField.selectAll();
-        	switch(curRoom) 
-        	{
-        	case "House":
-        		if(House.placeToGo.contains(leaveVar)) 
-        		{
-        			goTo(leaveVar);
-        		} else 
-        		{
-        			textArea.append("You can go to: " + House.placeToGo + "from here!" + newline);
-        		}
-        		break;
-        	case "MainHall":
-        		if(MainHall.placeToGo.contains(leaveVar)) 
-        		{
-        			goTo(leaveVar);
-        		} else 
-        		{
-        			textArea.append("You can go to: " + MainHall.placeToGo + "from here!" + newline);
-        		}
-        		break;
-        	case "ThroneRoom":
-        		if(ThroneRoom.placeToGo.contains(leaveVar)) 
-        		{
-        			goTo(leaveVar);
-        		} else 
-        		{
-        			textArea.append("You can go to: " + ThroneRoom.placeToGo + "from here!" + newline);
-        		}
-        		break;
-        	case "Dungeon":
-        		if(Dungeon.placeToGo.contains(leaveVar)) 
-        		{
-        			goTo(leaveVar);
-        		} else 
-        		{
-        			textArea.append("You can go to: " + Dungeon.placeToGo + "from here!" + newline);
-        		}
-        		break;
-        }
-        } else
-        if (text.contains("/getcuroom")) 
-        {
-        	curRoom();
-        	System.out.println(curRoom); //DEBUG
-        	textField.selectAll();
-        }
-        else
-        {
-        	textArea.append("Sorry, but that is not a valid response.\n");
-        	textField.selectAll();
-        	textArea.setCaretPosition(textArea.getDocument().getLength());
-        }
-        
-    }
-    public static void goTo(String i) 
-    {
-    	switch(curRoom) 
-    	{
-    	case "House":
-			switch(leaveVar) 
-    		{
-			case "main":
-				House.isActive = false;
-	    		MainHall.isActive = true;
-	    		curRoom();
-	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
-				break;
-    		}
-    		break;
-    	case "MainHall":
-    		switch(leaveVar) 
-    		{
-			case "house":
-				MainHall.isActive = false;
-	    		House.isActive = true;
-	    		curRoom();
-	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
-				break;
-			case "dungeon":
-				MainHall.isActive = false;
-				Dungeon.isActive = true;
-				curRoom();
-	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
-				break;
-			case "throne":
-				MainHall.isActive = false;
-				ThroneRoom.isActive = true;
-				curRoom();
-	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
-				break;
-    		}
-    		break;
-    	case "ThroneRoom":
-    		switch(leaveVar) 
-    		{
-			case "main":
-				ThroneRoom.isActive = false;
-	    		MainHall.isActive = true;
-	    		curRoom();
-	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
-				break;
-    		}
-    		break;
-    	case "Dungeon":
-    		switch(leaveVar) 
-    		{
-			case "house":
-				Dungeon.isActive = false;
-	    		House.isActive = true;
-	    		curRoom();
-	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
-	        	Dungeon.setup();
-				break;
-    		}
-    		break;
-    	}
-    }
-    static void createAndShowGUI() {
-        //Create and set up the window.
-    	//House.setup();
-    	if(MainMenu.isActive == false) {
-        JFrame frame = new JFrame("Kingdom Feller");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Add contents to the window.
-        frame.add(new KFTextBox());
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-        MainMenu.isActive = true;
-    	}
-    }
-
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event dispatch thread.
-     */
-
-    
-
-    public static void main(String[] args) {
-    	 House.isActive = true;
-    	 curRoom();
-    	 System.out.println(curRoom);
+	public static void setup() 
+	{
+		theMainHall = new MainHall();
+		theMainHall.items = new Item[3];
+		theMainHall.characters = new Character[3];
+		theMainHall.generateItems();
+		theMainHall.generateCharacters();
+	}
+	
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
-    	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-    	House.setup();
-    	MainHall.setup();
-    	Dungeon.setup();
-    	ThroneRoom.setup();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	createAndShowGUI();
-            }
-        });
-    }
+		setup();
+		System.out.println(theMainHall.bob.getFullName());
+	}
+	
+	public static String getItemLongDescs()
+	{
+		String toReturn = "";
+		for(Item item : theMainHall.items)
+		{
+			toReturn = toReturn + item.getLongDesc() + "\n";
+		}
+		return toReturn;
+	}
+	
+	public static String getHelp() 
+	{
+		String help = "I see you're in a strange room? Maybe you should look around... \nMaybe you should also examine and use what you see...";
+		return help;
+	}
+	
+	public static String getItemShortDescs()
+	{
+		String toReturn = "";
+		for(Item item : theMainHall.items)
+		{
+			toReturn = toReturn + item.getShortDesc() + "\n";
+		}
+		return toReturn;
+	}
+	
+	public static String itemUsedPrint()
+	{
+		String Returned = "";
+		for(Item item : theMainHall.items) 
+		{
+			Returned = Returned + item.itemUsedItem();
+		}
+		return itemUsedPrint();
+	}
+	
+	public static Item getSpecItem(String i)
+	{
+		switch(i) 
+		{
+		case "food":
+			newVar1 = 0;
+			break;
+		case "dog":
+			newVar1 = 1;
+			break;
+		case "pillar":
+			newVar1 = 2;
+			break;
+		}
+		return theMainHall.items[newVar1];
+	}
+	public static Character[] getCharacters()
+	{
+		return MainHall.characters;
+	}
+	public static Character getSpecCharacter(int index)
+	{
+		return MainHall.characters[index];
+	}
+	
+	public static Item itemUsed(int index) 
+	{
+		return theMainHall.items[index];
+	}
+	
+	private void generateItems()
+	{
+		food = new Item("Food", "There is random food on the table.", "Many generic foods crowd a table, you don't know what to call most of them!", "", "", "");
+		dog = new Item("Dog", "There is a dog near a table.", "A dog with a golden coat. It's collar appears to say Molly on it.", "pet dog", "You pet a dog! It woofed happily", "");
+		pillar = new Item("Pillar", "A large wooden chest sits in the corner.", "A wooden chest covered in dust with a large iron lock on the front. You don't know what's inside of it, and you don't remember where you left the key.", "unlock chest", "", "");
+		items[FOOD] = food; // 0
+		items[DOG] = dog; // 1
+		items[PILLAR] = pillar; // 2
+	}
+	private void generateCharacters()
+	{
+		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington the Third", "Welcome to Castle Isratosh, I'll be your host for tonight. Would you like a table?", "Ah, perfect. Just follow me over here and I'll find one for you!");//placeholder
+		characters[BOB] = bob; //0
+	}
+
 }
