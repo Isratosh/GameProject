@@ -103,11 +103,11 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textField.selectAll();
     			break;
     		case "ThroneRoom":
-    			//textArea.append(ThroneRoom.getItemShortDescs());
+    			textArea.append(ThroneRoom.getItemShortDescs());
     			textField.selectAll();
     			break;
     		case "Dungeon":
-    			//textArea.append(Dungeon.getItemShortDescs());
+    			textArea.append(Dungeon.getItemShortDescs());
     			textField.selectAll();
     			break;
     		}
@@ -164,7 +164,8 @@ public class KFTextBox extends JPanel implements ActionListener {
         {
         	textArea.append(House.getHelp() + newline);
         	textField.selectAll();
-        } if(text.contains("go")) 
+        } else
+        if(text.contains("go")) 
         {
         	String[] split = text.split(" ");
         	leaveVar = split[1];
@@ -280,6 +281,7 @@ public class KFTextBox extends JPanel implements ActionListener {
 	    		House.isActive = true;
 	    		curRoom();
 	        	textArea.append("You are now in the " + curRoom + " room!" + newline);
+	        	Dungeon.setup();
 				break;
     		}
     		break;
@@ -330,5 +332,5 @@ public class KFTextBox extends JPanel implements ActionListener {
             	createAndShowGUI();
             }
         });
-	}
+    }
 }
