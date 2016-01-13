@@ -7,14 +7,13 @@ public class MainHall {
 	public static final int DOG = 1;
 	public static final int PILLAR = 2;
 	public static final int THRONEDOOR = 3;
-	//character array index constants
 	public static final int BOB = 0;
 	
 	public static int newVar1;
 	
-	private Character[] characters;
+	public static Character[] characters;
 	private Item[] items;
-	private static MainHall MainHall;
+	private static MainHall theMainHall;
 	public static boolean isActive = false;
 	public static String placeToGo = "house, throne room, dungeon";
 	
@@ -29,24 +28,24 @@ public class MainHall {
 	 */
 	public static void setup() 
 	{
-		MainHall = new MainHall();
-		MainHall.items = new Item[3];
-		MainHall.characters = new Character[1];
-		MainHall.generateItems();
-		MainHall.generateCharacters();
+		theMainHall = new MainHall();
+		theMainHall.items = new Item[3];
+		theMainHall.characters = new Character[3];
+		theMainHall.generateItems();
+		theMainHall.generateCharacters();
 	}
 	
 	public static void main(String[] args) 
 	{
 		// TODO Auto-generated method stub
 		setup();
-		System.out.println(MainHall.bob.getFullName());
+		System.out.println(theMainHall.bob.getFullName());
 	}
 	
 	public static String getItemLongDescs()
 	{
 		String toReturn = "";
-		for(Item item : MainHall.items)
+		for(Item item : theMainHall.items)
 		{
 			toReturn = toReturn + item.getLongDesc() + "\n";
 		}
@@ -62,7 +61,7 @@ public class MainHall {
 	public static String getItemShortDescs()
 	{
 		String toReturn = "";
-		for(Item item : MainHall.items)
+		for(Item item : theMainHall.items)
 		{
 			toReturn = toReturn + item.getShortDesc() + "\n";
 		}
@@ -72,7 +71,7 @@ public class MainHall {
 	public static String itemUsedPrint()
 	{
 		String Returned = "";
-		for(Item item : MainHall.items) 
+		for(Item item : theMainHall.items) 
 		{
 			Returned = Returned + item.itemUsedItem();
 		}
@@ -93,19 +92,11 @@ public class MainHall {
 			newVar1 = 2;
 			break;
 		}
-		return MainHall.items[newVar1];
-	}
-	public static Character[] getCharacters()
-	{
-		return MainHall.characters;
-	}
-	public static Character getSpecCharacter(int index)
-	{
-		return MainHall.characters[index];
+		return theMainHall.items[newVar1];
 	}
 	public static Item itemUsed(int index) 
 	{
-		return MainHall.items[index];
+		return theMainHall.items[index];
 	}
 	
 	private void generateItems()
