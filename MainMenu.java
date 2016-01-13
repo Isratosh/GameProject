@@ -85,6 +85,7 @@ public class MainMenu extends JPanel implements  ActionListener{
 
 	 private static void createAndShowGUI1() throws IOException {
 
+	        JFrame.setDefaultLookAndFeelDecorated(true);
 	        MainMenu demo = new MainMenu();
 	        frame.setContentPane(demo.createContentPane());
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,8 +98,6 @@ public class MainMenu extends JPanel implements  ActionListener{
             public void run() {
             	try {
 					createAndShowGUI1();
-					House.setup();
-					KFTextBox.curRoom();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

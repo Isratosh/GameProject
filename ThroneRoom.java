@@ -11,6 +11,7 @@ public class ThroneRoom {
 	public static final int SWORD = 5;
 	public static final int POISON = 6;	
 	public static int newVar1;
+	public static String placeToGo = "main hall";
 	
 	private Item[] items;
 	private boolean locked = true;
@@ -127,4 +128,3 @@ public class ThroneRoom {
 	}
 
 }
-
