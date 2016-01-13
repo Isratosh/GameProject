@@ -7,6 +7,7 @@ public class MainHall {
 	public static final int DOG = 1;
 	public static final int PILLAR = 2;
 	public static final int THRONEDOOR = 3;
+	//character array index constants
 	public static final int BOB = 0;
 	
 	public static int newVar1;
@@ -30,7 +31,7 @@ public class MainHall {
 	{
 		MainHall = new MainHall();
 		MainHall.items = new Item[3];
-		MainHall.characters = new Character[3];
+		MainHall.characters = new Character[1];
 		MainHall.generateItems();
 		MainHall.generateCharacters();
 	}
@@ -93,6 +94,14 @@ public class MainHall {
 			break;
 		}
 		return MainHall.items[newVar1];
+	}
+	public static Character[] getCharacters()
+	{
+		return MainHall.characters;
+	}
+	public static Character getSpecCharacter(int index)
+	{
+		return MainHall.characters[index];
 	}
 	public static Item itemUsed(int index) 
 	{
