@@ -12,13 +12,16 @@ public class House {
 	public static final int GOLD = 7;
 	public static int newVar1;
 	public static final String placeToGo = "main hall";
-	public static final String commActions = "book, chest, doormat, sword, poison, silver, gold";
+	public static final String commActions = "book, chest, doormat, sword, poison, silver, gold, key";
 	
 	private Item[] items;
 	private boolean locked = true;
 	public static boolean hasKey = false;
 	static House theHouse;
 	public static boolean isActive = false;
+	public static boolean hasGold = false;
+	public static boolean openedChest = false;
+	public static boolean underMat = false;
 	
 	private Item doorMat;
 	private Item table;
@@ -103,7 +106,7 @@ public class House {
 			break;
 		case "key":
 			newVar1 = 4;
-			break;
+			break; 
 		case "sword":
 			newVar1 = 5;
 			break;
@@ -120,14 +123,14 @@ public class House {
 	
 	private void generateItems()
 	{
-		doorMat = new Item("Doormat", "There is a doormat next to the exit.", "It is an old looking doormat with the words \"Welcome\" written on it. You don't know why it is on the inside of the door.", "look under mat", "You found the key!\n", "");
+		doorMat = new Item("Doormat", "There is a doormat next to the exit.", "It is an old looking doormat with the words \"Welcome\" written on it. You don't know why it is on the inside of the door.", "look under mat", "You found the key, do you take it?\n", "");
 		table = new Item("Table", "There is a wooden table across from the door.", "It is a rickety old wooden table. One of the legs is shorter than the rest.", "", "", "");
-		chest = new Item("Chest", "A large wooden chest sits in the corner.", "A wooden chest covered in dust with a large iron lock on the front. You don't know what's inside of it, and you don't remember where you left the key.", "unlock chest", "", "");
-		goldKey = new Item("GoldKey", "A large gold key sits inside the chest.", "", "", "", "");
-		silverKey = new Item("SilverKey", "A small silver key laying under the mat.", "A small key, too small for the door, but big enough for the chest.", "take key", "You found the silver key!", "");
+		chest = new Item("Chest", "A large wooden chest sits in the corner.", "A wooden chest covered in dust with a large iron lock on the front. You don't know what's inside of it, and you don't remember where you left the key.", "unlock chest", "The chest creaks open, you look into the darkness and see a sword, poison, and a gold key! do you take them?\n", "");
+		goldKey = new Item("GoldKey", "", "", "take gold key", "You found the gold key! It should fit in the door!\n", "");
+		silverKey = new Item("SilverKey", "", "A small key, too small for the door, but big enough for the chest.", "take key", "You found the silver key! It should fit in the chest...\n", "");
 		book = new Item("Book", "An old book sits open on top of the table, inviting you to read it.", "A dusty, old looking book with the spine falling off. You get the distinct feeling that you should read it.", "read book", "The title of the book is \"To Kill a King\" It was written by Prince Ragoolaman\nChapter 1: The Games Begin\nThe controls are simply your keyboard. What the game tells you doesn't provide rigid options. You type things that you think could work, and if they don't you will be notified.\nThe commands are as follows. To return to the main menu, simply type \"/exit\" And to get vague hints one just needs to type \"/help\"\nThe remainder of the princes novel has been ripped out, hence the broken spine.\nAll that remains past the first chapter is the final page, it has the words \"Meet me at the castle when you arrive. regards, P.R. \nP.S. I left your key under the doormat!\" scrawled into it.\n \nYou can't remember who P.R. is, but you feel like they is important, and that you should meet them with all haste!\nYou suddenly remember that you leave your house by typing \"leave (destination)\"however, you shouldn't leave here without your sword... Now where did you leave it again?\n", "");
-		poison = new Item("Poison", "", "", "", "", "");
-		sword = new Item("Sword", "A sharp sword in the chest.", "A beautiful sword with a slight backwards curve along the blade, It looks", "", "", "");
+		poison = new Item("Poison", "", "", "take poison", "You picke up the poison, maybe it will become useful on your mission. You put it in your belt.\n ", "");
+		sword = new Item("Sword", "", "", "take sword", "You picked up your sword, you strap its sheath to your belt.\n", "");
 		items[DOORMAT] = doorMat; // 0
 		items[TABLE] = table; // 1
 		items[CHEST] = chest; // 2
