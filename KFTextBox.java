@@ -194,7 +194,7 @@ public class KFTextBox extends JPanel implements ActionListener {
         		case "ThroneRoom":
         			break;
         		default:
-        			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+        			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART. IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
         			break;
         		}
         		//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
@@ -218,6 +218,7 @@ public class KFTextBox extends JPanel implements ActionListener {
         		}
         		break;
         	}
+        	textField.selectAll();
         } else
         if( text.contains("take") && text.contains("key"))
         {
@@ -283,7 +284,7 @@ public class KFTextBox extends JPanel implements ActionListener {
         	textField.selectAll();
         } else
 //go command
-        if(text.contains("go")) 
+        if(text.contains("/go")) 
         {
         	String[] split = text.split(" ");
         	leaveVar = split[1];
