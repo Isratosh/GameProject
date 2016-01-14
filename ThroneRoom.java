@@ -1,5 +1,7 @@
 package project;
 
+import java.util.Random;
+
 
 public class ThroneRoom {
 	//items array index constants
@@ -10,13 +12,15 @@ public class ThroneRoom {
 	public static final int KEY = 4;
 	public static final int SWORD = 5;
 	public static final int POISON = 6;	
+	public static final int ISRATOSH = 0;
 	public static int newVar1;
 	public static String placeToGo = "main hall";
 	
+	public static Character[] characters;
 	private Item[] items;
 	private boolean locked = true;
 	private boolean hasKey = false;
-	private static ThroneRoom ThroneRoom;
+	private static ThroneRoom theThroneRoom;
 	public static boolean isActive = true;
 	
 	private Item doorMat;
@@ -27,14 +31,17 @@ public class ThroneRoom {
 	private Item poison;
 	private Item book;
 	
+	private Character isratosh;
+	
 	/**
 	 * @param args
 	 */
 	public static void setup() 
 	{
-		ThroneRoom = new ThroneRoom();
-		ThroneRoom.items = new Item[4];
-		ThroneRoom.generateItems();
+		theThroneRoom = new ThroneRoom();
+		theThroneRoom.items = new Item[4];
+		theThroneRoom.generateItems();
+		theThroneRoom.generateCharacters();
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -44,12 +51,21 @@ public class ThroneRoom {
 		//System.out.println(getItemShortDescs()); //temp
 		//System.out.println(getItemLongDescs()); //temp
 		//System.out.println(getSpecItem(2).getLongDesc()); //temp
+		israRand();
 	}
-	
+	public static void israRand() {
+	Random rn = new Random();
+
+	for(int i =0; i < 100; i++)
+	{
+	    int answer = rn.nextInt(10) + 1;
+	    System.out.println(answer);
+	}
+	}
 	public static String getItemLongDescs()
 	{
 		String toReturn = "";
-		for(Item item : ThroneRoom.items)
+		for(Item item : theThroneRoom.items)
 		{
 			toReturn = toReturn + item.getLongDesc() + "\n";
 		}
@@ -65,7 +81,7 @@ public class ThroneRoom {
 	public static String getItemShortDescs()
 	{
 		String toReturn = "";
-		for(Item item : ThroneRoom.items)
+		for(Item item : theThroneRoom.items)
 		{
 			toReturn = toReturn + item.getShortDesc() + "\n";
 		}
@@ -75,11 +91,29 @@ public class ThroneRoom {
 	public static String itemUsedPrint()
 	{
 		String Returned = "";
-		for(Item item : ThroneRoom.items) 
+		for(Item item : theThroneRoom.items) 
 		{
 			Returned = Returned + item.itemUsedItem();
 		}
 		return itemUsedPrint();
+	}
+	public static Character[] getCharacters()
+	{
+		return MainHall.characters;
+	}
+	public static Character getSpecCharacter(String index)
+	{
+		int s;
+		switch(index)
+		{
+		case "bob":
+			s = ISRATOSH;
+			break;
+		default:
+			s = ISRATOSH;//change this
+			break;
+		}
+		return MainHall.characters[s];
 	}
 	
 	public static Item getSpecItem(String newVar)
@@ -108,11 +142,11 @@ public class ThroneRoom {
 			newVar1 = 6;
 			break;
 		}
-		return ThroneRoom.items[newVar1];
+		return theThroneRoom.items[newVar1];
 	}
 	public static Item itemUsed(int index) 
 	{
-		return ThroneRoom.items[index];
+		return theThroneRoom.items[index];
 	}
 	
 	private void generateItems()
@@ -125,6 +159,12 @@ public class ThroneRoom {
 		items[TABLE] = table; // 1
 		items[CHEST] = chest; // 2
 		items[BOOK] = book; // 3
+		
+	}
+	private void generateCharacters()
+	{
+		isratosh = new Character("King Isratosh", "", "", "");
+		characters[0] = isratosh; //0
 	}
 
 }
