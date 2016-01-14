@@ -11,7 +11,8 @@ public class House {
 	public static final int POISON = 6;
 	public static final int GOLD = 7;
 	public static int newVar1;
-	public static String placeToGo = "main hall";
+	public static final String placeToGo = "main hall";
+	public static final String commActions = "book, chest, doormat, sword, poison, silver, gold";
 	
 	private Item[] items;
 	private boolean locked = true;
