@@ -8,6 +8,8 @@ public class MainHall {
 	public static final int PILLAR = 2;
 	public static final int THRONEDOOR = 3;
 	public static final int BOB = 0;
+	public static final int RAGOOLAMAN = 1;
+	public static final int MICHEAL = 2;
 	
 	public static int newVar1;
 	
@@ -22,7 +24,8 @@ public class MainHall {
 	private Item pillar;
 	
 	private Character bob;
-	
+	private Character ragoolaman;
+	private Character micheal;
 	/**
 	 * @param args
 	 */
@@ -106,6 +109,11 @@ public class MainHall {
 		case "bob":
 			s = BOB;
 			break;
+		case "ragoolaman":
+			s = RAGOOLAMAN;
+			break;
+		case "micheal":
+			s = MICHEAL;
 		default:
 			s = BOB;//change this
 			break;
@@ -131,7 +139,10 @@ public class MainHall {
 	{
 		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington the Third", "Welcome to Castle Isratosh, I'll be your host for tonight. Would you like a table?", "Ah, perfect. Just follow me over here and I'll find one for you!");//placeholder
 		characters[BOB] = bob; //0
-		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _ ")
+		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _. \nThey will each help you in different ways. Talk to them, and they will give you tasks to complete in order to solicit their help. Talk to me when you have completed the quests.\n", "");
+		characters[RAGOOLAMAN] = ragoolaman; //1
+		micheal = new Character("Micheal ", "", "", "");
+		characters[MICHEAL] = micheal;
 	}
 
 }
