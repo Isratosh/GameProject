@@ -91,11 +91,12 @@ public class KFTextBox extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText().toLowerCase();
+//look around
         if (text.contains("look around")) {
     		switch(curRoom) 
     		{
     		case "House":
-    			textArea.append(House.theHouse.getItemShortDescs());
+    			textArea.append(House.getItemShortDescs());
     			textField.selectAll();
     			break;
     		case "MainHall":
@@ -110,12 +111,16 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textArea.append(Dungeon.getItemShortDescs());
     			textField.selectAll();
     			break;
+    		default:
+    			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+    			break;
     		}
         	textField.selectAll();
         	//Make sure the new text is visible, even if there
         	//was a selection in the text area.
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         } else 
+//examine
         if (text.contains("examine ")) 
         {
         	String[] split = text.split(" ");
@@ -138,37 +143,81 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textArea.append(Dungeon.getSpecItem(newVar).getLongDesc() + newline);
     			textField.selectAll();
     			break;
+    		default:
+    			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+    			break;
     		}
     		
         	} else
-        	if(text.contains("read book")) {
+//Actions two words with regex
+        	if(text.contains("read ") || text.contains("unlock ") || text.contains("open ") || text.contains("take ")) 
+        	{
+        		String[] split = text.split(" ");
+        		String commVar = split[1];
+        		switch(curRoom) 
+        		{
+        		case "House":
+        			if(House.commActions.contains(commVar)) 
+        			{
+        				switch(commVar) 
+        				{
+        				case "book":
+        					textArea.append(House.itemUsed(House.BOOK).itemUsedItem());
+        					break;
+        				}
+        			}
+        			break;
+        		case "MainHall":
+        			break;
+        		case "Dungeon":
+        			break;
+        		case "ThroneRoom":
+        			break;
+        		default:
+        			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+        			break;
+        		}
         		textArea.append(House.itemUsed(House.BOOK).itemUsedItem());
         		//textArea.append(House.getSpecItem(0).getLongDesc() + newline);
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        } else 
-        if(text.contains("look under mat")) 
+        }else 
+//Actions three words with regex
+        if(text.contains("look under ")) 
         {
-        	if(hasKey == false) {
-        	textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
-        	textField.selectAll();
-        	hasKey = true;
-        	}else 
+        	String[] split = text.split(" ");
+        	String commVar = split[2];
+        	switch(curRoom) 
         	{
-        	textArea.append("You already have the key to the chest! Maybe you should use it..." + newline);
-        	textField.selectAll();
+        	case "House":
+        		switch(commVar) 
+        		{
+        		case "doormat":
+					textArea.append(House.itemUsed(House.DOORMAT).itemUsedItem());
+					break;
+        		}
+        		break;
         	}
         } else
+//exit command
         if(text.contains("/exit")) 
         {
         	MainMenu.textDemoVisible();
         	textField.selectAll();
         } else
+//help command
         if(text.contains("/help")) 
         {
         	textArea.append(House.getHelp() + newline);
         	textField.selectAll();
         } else
+//debug give key command
+        if(text.contains("/givekey")) 
+        {
+        	House.hasKey = true;
+        	textField.selectAll();
+        } else
+//go command
         if(text.contains("go")) 
         {
         	String[] split = text.split(" ");
@@ -214,18 +263,23 @@ public class KFTextBox extends JPanel implements ActionListener {
 	        			textArea.append("You can go to: " + Dungeon.placeToGo + "from here!" + newline);
 	        		}
 	        		break;
+        		default:
+        			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+        			break;
 	        	}
         	} else 
         	{
         		textArea.append("Sorry, but you need the door key to leave, maybe it is in your chest...");
         	} 
         } else
+//debug getcurrent room command
         if (text.contains("/getcuroom")) 
         {
         	curRoom();
         	System.out.println(curRoom); //DEBUG
         	textField.selectAll();
         } else
+//talk to char
         if (text.contains("talk to ")) {
         	String[] split = text.split(" ");
         	String toTalk = split[2];
@@ -245,12 +299,14 @@ public class KFTextBox extends JPanel implements ActionListener {
     		case "Dungeon":
     			textField.selectAll();
     			break;
+    		default:
+    			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+    			break;
     		}
         	textField.selectAll();
-//        	Make sure the new text is visible, even if there
-        	//was a selection in the text area.
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         } else 
+//ask name of char
         if (text.contains("ask name")) {
             	String[] split = text.split(" ");
             	String toTalk = split[2];
@@ -270,10 +326,11 @@ public class KFTextBox extends JPanel implements ActionListener {
         		case "Dungeon":
         			textField.selectAll();
         			break;
+        		default:
+        			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+        			break;
         		}
             	textField.selectAll();
-//            	Make sure the new text is visible, even if there
-            	//was a selection in the text area.
             	textArea.setCaretPosition(textArea.getDocument().getLength());
         } else
         {
@@ -344,6 +401,9 @@ public class KFTextBox extends JPanel implements ActionListener {
 				break;
     		}
     		break;
+		default:
+			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
+			break;
     	}
     }
     static void createAndShowGUI() {
