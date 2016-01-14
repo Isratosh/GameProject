@@ -131,6 +131,7 @@ public class MainHall {
 	{
 		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington the Third", "Welcome to Castle Isratosh, I'll be your host for tonight. Would you like a table?", "Ah, perfect. Just follow me over here and I'll find one for you!");//placeholder
 		characters[BOB] = bob; //0
+		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _ ")
 	}
 
 }
