@@ -117,6 +117,7 @@ public class MainHall {
 			break;
 		case "micheal":
 			s = MICHEAL;
+			break;
 		default:
 			s = BOB;//change this
 			break;
@@ -144,7 +145,7 @@ public class MainHall {
 		characters[BOB] = bob; //0
 		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _. \nThey will each help you in different ways. Talk to them, and they will give you tasks to complete in order to solicit their help. Talk to me when you have completed the quests.\n", "");
 		characters[RAGOOLAMAN] = ragoolaman; //1
-		micheal = new Character("Micheal ", "", "", "");
+		micheal = new Character("Micheal", "The slow", "Oi, your that man ragoolaman spoke of eh? There is something funny aboot you indeed... I've got a job for yeh mate!", "You need to get thrown into jail... Start insulting guards, that'll do it. You need to retrieve something important from my cell. To get out you need to bend the bars. They are a very weak material.");
 		characters[MICHEAL] = micheal;
 	}
 
