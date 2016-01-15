@@ -10,6 +10,8 @@ public class MainHall {
 	public static final int BOB = 0;
 	public static final int RAGOOLAMAN = 1;
 	public static final int MICHEAL = 2;
+	public static final int GABRIELLA = 3;
+	public static final int THOMAS = 4;
 	
 	public static int newVar1;
 	
@@ -18,6 +20,7 @@ public class MainHall {
 	private static MainHall theMainHall;
 	public static boolean isActive = false;
 	public static String placeToGo = "house, throne room, dungeon";
+	public static String peopleToTalk = "bob, ";
 	
 	private Item food;
 	private Item dog;
@@ -137,7 +140,7 @@ public class MainHall {
 	}
 	private void generateCharacters()
 	{
-		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington the Third", "Welcome to Castle Isratosh, I'll be your host for tonight. Would you like a table?", "Ah, perfect. Just follow me over here and I'll find one for you!");//placeholder
+		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington", "Hey, you're the guys ragoolaman told me about right? I have a job for you...", "You see joe the guard over there? He took money from my shop. Get it back for me, and I'll make you a key for the castle.");//placeholder
 		characters[BOB] = bob; //0
 		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _. \nThey will each help you in different ways. Talk to them, and they will give you tasks to complete in order to solicit their help. Talk to me when you have completed the quests.\n", "");
 		characters[RAGOOLAMAN] = ragoolaman; //1
