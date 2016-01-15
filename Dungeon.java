@@ -6,15 +6,13 @@ public class Dungeon {
 	public static final int RAT = 0;
 	public static final int DOOR = 1;
 	public static final int SKULL = 2;
-	public static final int KEY = 3;
 	public static int newVar1;
 	public static String placeToGo = "house";
-
 	
 	private Item[] items;
 	private boolean locked = true;
 	private boolean hasKey = false;
-	private static Dungeon Dungeon;
+	public static Dungeon theDungeon;
 	public static boolean isActive = false;
 	
 	private Item rat;
@@ -27,15 +25,15 @@ public class Dungeon {
 	 */
 	public static void setup() 
 	{
-		Dungeon = new Dungeon();
-		Dungeon.items = new Item[4];
-		Dungeon.generateItems();
+		theDungeon = new Dungeon();
+		theDungeon.items = new Item[3];
+		theDungeon.generateItems();
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//Dungeon = new Dungeon();
-		//Dungeon.items = new Item[4];
-		//Dungeon.generateItems();
+		//theDungeon = new Dungeon();
+		//theDungeon.items = new Item[3];
+		//theDungeon.generateItems();
 		//System.out.println(getItemShortDescs()); //temp
 		//System.out.println(getItemLongDescs()); //temp
 		//System.out.println(getSpecItem(2).getLongDesc()); //temp
@@ -44,7 +42,7 @@ public class Dungeon {
 	public static String getItemLongDescs()
 	{
 		String toReturn = "";
-		for(Item item : Dungeon.items)
+		for(Item item : theDungeon.items)
 		{
 			toReturn = toReturn + item.getLongDesc() + "\n";
 		}
@@ -60,7 +58,7 @@ public class Dungeon {
 	public static String getItemShortDescs()
 	{
 		String toReturn = "";
-		for(Item item : Dungeon.items)
+		for(Item item : theDungeon.items)
 		{
 			toReturn = toReturn + item.getShortDesc() + "\n";
 		}
@@ -70,7 +68,7 @@ public class Dungeon {
 	public static String itemUsedPrint()
 	{
 		String Returned = "";
-		for(Item item : Dungeon.items) 
+		for(Item item : theDungeon.items) 
 		{
 			Returned = Returned + item.itemUsedItem();
 		}
@@ -91,11 +89,11 @@ public class Dungeon {
 			newVar1 = 2;
 			break;
 		}
-		return Dungeon.items[newVar1];
+		return theDungeon.items[newVar1];
 	}
 	public static Item itemUsed(int index) 
 	{
-		return Dungeon.items[index];
+		return theDungeon.items[index];
 	}
 	
 	private void generateItems()
