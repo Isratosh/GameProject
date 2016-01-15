@@ -1,19 +1,14 @@
 package project;
-
 /* TextDemo.java requires no other files. */
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-
 public class KFTextBox extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -24,32 +19,26 @@ public class KFTextBox extends JPanel implements ActionListener {
     protected static JTextArea textArea;
     private final static String newline = "\n";
     public static String curRoom;
-    private static String newVar;
+    private static String examVar;
     public boolean hasKey = false;
     public static String leaveVar;
     public static boolean questMode = false;
     public static String curQuest;
-    public static String gameOver = "Congradulations on making it ths far. Unfortunately, the Mad King Isratosh the Gluttonous proved to be a match for you. Play again and see how far you can get." + newline;
+    public static String gameOver = "Congratulations on making it ths far. Unfortunately, the Mad King Isratosh the Gluttonous proved to be a match for you. Play again and see how far you can get." + newline;
     public static boolean bobQuest = true;
-   
-
+	public static boolean initial = false;
     public KFTextBox() {
         super(new GridBagLayout());
-
         textField = new JTextField(20);
         textField.addActionListener(this);
-
         textArea = new JTextArea(5, 20);
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
-
         //Add Components to this panel.
         GridBagConstraints c = new GridBagConstraints();
         c.gridwidth = GridBagConstraints.REMAINDER;
-
         c.fill = GridBagConstraints.HORIZONTAL;
         add(textField, c);
-
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1.0; 
         c.weighty = 1.0;
@@ -91,7 +80,6 @@ public class KFTextBox extends JPanel implements ActionListener {
     		System.out.println("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM");
     	}
     }
-
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText().toLowerCase();
         if(questMode == false){
@@ -128,30 +116,29 @@ public class KFTextBox extends JPanel implements ActionListener {
         if (text.contains("examine ")) 
         {
         	String[] split = text.split(" ");
-        	newVar = split[1];
+        	examVar = split[1];
     		switch(curRoom) 
     		{
     		case "House":
-    			textArea.append(House.getSpecItem(newVar).getLongDesc() + newline);
+    			textArea.append(House.getSpecItem(examVar).getLongDesc() + newline);
     			textField.selectAll();
     			break;
     		case "MainHall":
-    			textArea.append(MainHall.getSpecItem(newVar).getLongDesc() + newline);
+    			textArea.append(MainHall.getSpecItem(examVar).getLongDesc() + newline);
     			textField.selectAll();
     			break;
     		case "ThroneRoom":
-    			textArea.append(ThroneRoom.getSpecItem(newVar).getLongDesc() + newline);
+    			textArea.append(ThroneRoom.getSpecItem(examVar).getLongDesc() + newline);
     			textField.selectAll();
     			break;
     		case "Dungeon":
-    			textArea.append(Dungeon.getSpecItem(newVar).getLongDesc() + newline);
+    			textArea.append(Dungeon.getSpecItem(examVar).getLongDesc() + newline);
     			textField.selectAll();
     			break;
     		default:
     			textArea.append("FATAL ERROR: YOU ARE NOT IN ANY DEFINED ROOM, PLEASE RESTART. IF THIS IS NOT THE FIRST TIME YOU ARE READING THIS MESSAGE THEN REDOWNLOAD .JAR FROM: github.com/Isratosh/GameProject/releases");
     			break;
-    		}
-    		
+    		}	
         	} else
 //Actions two words with expression
         	if(text.contains("read ") || text.contains("unlock ") || text.contains("open ") || text.contains("take ") && !text.contains("key")) 
@@ -352,8 +339,7 @@ public class KFTextBox extends JPanel implements ActionListener {
 //talk to char
         if (text.contains("talk to ")) {
         	String[] split = text.split(" ");
-        	String toTalk = split[2];
-        
+        	String toTalk = split[2];        
         	textField.selectAll();
     		switch(curRoom) 
     		{
@@ -412,27 +398,29 @@ public class KFTextBox extends JPanel implements ActionListener {
         	String accepted = split[1];
         	textField.selectAll();
         	textArea.append(MainHall.getSpecCharacter(accepted).getQuestText() + newline);
+        	System.out.println(accepted);
         	switch(accepted) 
         	{
         	case "bob":
         		curQuest = "bob";
         		questMode = true;
         		System.out.println(questMode);
+        		textArea.append("type \"start\" to start." + newline);
         		break;
         	case "micheal":
         		curQuest = "micheal";
         		questMode = true;
-
+        		textArea.append("type \"start\" to start." + newline);
         		break;
         	case "gabriella":
         		curQuest = "gabriella";
         		questMode = true;
-
+        		textArea.append("type \"start\" to start." + newline);
         		break;
         	case "thomas":
         		curQuest = "thomas";
         		questMode = true;
-
+        		textArea.append("type \"start\" to start." + newline);
         		break;
         	}
         } else
@@ -440,12 +428,9 @@ public class KFTextBox extends JPanel implements ActionListener {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
-        }
-        
+        }     
     } else 
     {
-    	boolean initial = false;
-    	int order = 0;
     	System.out.println("quest mode engage ayy lmao!");
     	if(curQuest == "bob") 
     	{
@@ -477,9 +462,45 @@ public class KFTextBox extends JPanel implements ActionListener {
       		{
       			textArea.append("You carefully steal the money. The guard doesn't notice! you move with all haste back to bob the locksmith!" + newline);
       			textArea.append("\"Cheers mate!\"says bob \" I'll get to work on that key now!\"");
-      			textArea.append("Congratulations! Bob is now on your side!");
-      			
+      			textArea.append("Congratulations! Bob is now on your side!");     			
+      			questMode = false;
+      			curQuest = null;
+      			initial = false;
       		}
+    		
+    	} else
+    	if(curQuest == "micheal") 
+    	{
+    		if(initial == false){
+    		MainHall.isActive = false;
+    		Dungeon.isActive = true;
+    		curRoom();
+    		textArea.append("You run up and kick the guard, you are thrown into the cell after being beaten. You fall asleep nearly instantly." + newline);
+    		initial = true;
+    		} else
+    		if(text.contains("look around")) 
+    		{
+    			textArea.append(Dungeon.getItemShortDescs());
+    		} else
+    	    if (text.contains("examine ")) 
+    	    {
+    	        	String[] split = text.split(" ");
+    	        	examVar = split[1];
+    	        	textArea.append(Dungeon.getSpecItem(examVar).getLongDesc());
+    	    } else
+    	    if (text.contains("take knife"))     	    	 
+    	    {
+    	    	textArea.append(Dungeon.itemUsed(Dungeon.KNIFE).itemUsedItem());
+    	    	textArea.append("You return to micheal, he says:" + newline);
+    	    	textArea.append("Cheers mate, I owe you a biggie now!");
+    	    	textArea.append("Micheal is on your side! Rejoice!");
+    	    	questMode = false;
+    	    	curQuest = null;
+    	    	initial = false;
+    	    	MainHall.isActive = true;
+    	    	Dungeon.isActive = false;
+    	    	curRoom();
+    	    }
     	}
     }
     }
@@ -555,10 +576,8 @@ public class KFTextBox extends JPanel implements ActionListener {
     	if(MainMenu.isActive == false) {
         JFrame frame = new JFrame("Kingdom Feller");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         //Add contents to the window.
         frame.add(new KFTextBox());
-
         //Display the window.
         frame.pack();
         frame.setVisible(true);
@@ -571,15 +590,11 @@ public class KFTextBox extends JPanel implements ActionListener {
         curRoom();
     	}
     }
-
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event dispatch thread.
      */
-
-    
-
     public static void main(String[] args) {
     	 System.out.println(curRoom);
 		// TODO Auto-generated method stub
@@ -589,7 +604,6 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
         /*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-
     	 /*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
