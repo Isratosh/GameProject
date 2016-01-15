@@ -27,7 +27,10 @@ public class KFTextBox extends JPanel implements ActionListener {
     private static String newVar;
     public boolean hasKey = false;
     public static String leaveVar;
-    
+    public static boolean questMode = false;
+    public static String curQuest;
+    public static String gameOver = "Congradulations on making it ths far. Unfortunately, the Mad King Isratosh the Gluttonous proved to be a match for you. Play again and see how far you can get." + newline;
+    public static boolean bobQuest = true;
    
 
     public KFTextBox() {
@@ -91,7 +94,8 @@ public class KFTextBox extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText().toLowerCase();
-//look around
+        if(questMode == false){
+        //look around
         if (text.contains("look around")) {
     		switch(curRoom) 
     		{
@@ -349,6 +353,7 @@ public class KFTextBox extends JPanel implements ActionListener {
         if (text.contains("talk to ")) {
         	String[] split = text.split(" ");
         	String toTalk = split[2];
+        
         	textField.selectAll();
     		switch(curRoom) 
     		{
@@ -356,10 +361,11 @@ public class KFTextBox extends JPanel implements ActionListener {
     			textField.selectAll();
     			break;
     		case "MainHall":
-    			textArea.append(MainHall.getSpecCharacter(toTalk).talkTo());
+    			textArea.append(MainHall.getSpecCharacter(toTalk).talkTo() + newline);
     			textField.selectAll();
     			break;
     		case "ThroneRoom":
+    			textArea.append(ThroneRoom.getSpecCharacter(toTalk).talkTo());
     			textField.selectAll();
     			break;
     		case "Dungeon":
@@ -383,7 +389,7 @@ public class KFTextBox extends JPanel implements ActionListener {
         			textField.selectAll();
         			break;
         		case "MainHall":
-        			textArea.append(MainHall.getSpecCharacter(toTalk).getFullName());
+        			textArea.append(MainHall.getSpecCharacter(toTalk).getFullName() + newline);
         			textField.selectAll();
         			break;
         		case "ThroneRoom":
@@ -399,12 +405,83 @@ public class KFTextBox extends JPanel implements ActionListener {
             	textField.selectAll();
             	textArea.setCaretPosition(textArea.getDocument().getLength());
         } else
+//quest accepting
+        if(text.contains("accept ")) 
+        {
+        	String[] split = text.split(" ");
+        	String accepted = split[1];
+        	textField.selectAll();
+        	textArea.append(MainHall.getSpecCharacter(accepted).getQuestText() + newline);
+        	switch(accepted) 
+        	{
+        	case "bob":
+        		curQuest = "bob";
+        		questMode = true;
+        		System.out.println(questMode);
+        		break;
+        	case "micheal":
+        		curQuest = "micheal";
+        		questMode = true;
+
+        		break;
+        	case "gabriella":
+        		curQuest = "gabriella";
+        		questMode = true;
+
+        		break;
+        	case "thomas":
+        		curQuest = "thomas";
+        		questMode = true;
+
+        		break;
+        	}
+        } else
         {
         	textArea.append("Sorry, but that is not a valid response.\n");
         	textField.selectAll();
         	textArea.setCaretPosition(textArea.getDocument().getLength());
         }
         
+    } else 
+    {
+    	boolean initial = false;
+    	int order = 0;
+    	System.out.println("quest mode engage ayy lmao!");
+    	if(curQuest == "bob") 
+    	{
+    		if(initial == false) {
+    		textArea.append("You have started bob's quest please wait..." + newline);
+    		textArea.append("The guard is patrolling the far wall." + newline);
+    		initial = true;
+    		} else
+    		if(order ==  0 && text.contains("move")) 
+    		{
+    			textField.selectAll();
+    			textArea.append("You move closer to the guard. You see his money pouch, now how to get at it. Maybe you should wait for him to turn... or steal it now..." + newline);
+    			order = 1;
+      		} else
+      		if(order == 1 && text.contains("wait")) 
+      		{
+      			textArea.append("As you slowly make your approach, the guard turns away... The time for action is now." + newline);
+      			textField.selectAll();
+      			order = 2;
+      		} else
+      		if(order == 1 && text.contains("now")) 
+      		{
+      			textArea.append("As you reach for the pouch of coins, another guard kicks you from behind. You are captured, and killed for thievery." + newline);
+      			textArea.append(gameOver);
+      			textField.selectAll();
+      			MainMenu.textDemoVisible();
+      		} else
+      		if(order == 2 && text.contains("take"))
+      		{
+      			textArea.append("You carefully steal the money. The guard doesn't notice! you move with all haste back to bob the locksmith!" + newline);
+      			textArea.append("\"Cheers mate!\"says bob \" I'll get to work on that key now!\"");
+      			textArea.append("Congratulations! Bob is now on your side!");
+      			
+      		}
+    	}
+    }
     }
     public static void goTo(String i) 
     {
@@ -486,6 +563,12 @@ public class KFTextBox extends JPanel implements ActionListener {
         frame.pack();
         frame.setVisible(true);
         MainMenu.isActive = true;
+        House.setup();
+        MainHall.setup();
+        ThroneRoom.setup();
+        Dungeon.setup();
+        House.isActive = true;
+        curRoom();
     	}
     }
 
@@ -498,8 +581,6 @@ public class KFTextBox extends JPanel implements ActionListener {
     
 
     public static void main(String[] args) {
-    	 House.isActive = true;
-    	 curRoom();
     	 System.out.println(curRoom);
 		// TODO Auto-generated method stub
     	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
@@ -507,12 +588,9 @@ public class KFTextBox extends JPanel implements ActionListener {
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
        	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-       	/*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
-    	House.setup();
-    	MainHall.setup();
-    	Dungeon.setup();
-    	ThroneRoom.setup();
-    	System.out.println(House.itemUsed(House.CHEST).itemUsedItem());
+        /*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
+
+    	 /*REMOVE THE FOLLOWING LINES AFTER DEVELOPMENT!!!!!*/
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
