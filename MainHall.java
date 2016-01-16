@@ -29,6 +29,8 @@ public class MainHall {
 	private Character bob;
 	private Character ragoolaman;
 	private Character micheal;
+	private Character gabriella;
+	private Character thomas;
 	/**
 	 * @param args
 	 */
@@ -118,8 +120,14 @@ public class MainHall {
 		case "micheal":
 			s = MICHEAL;
 			break;
+		case "gabriella":
+			s = GABRIELLA;
+			break;
+		case "thomas":
+			s = THOMAS;
+			break;
 		default:
-			s = BOB;//change this
+			s = RAGOOLAMAN;//change this
 			break;
 		}
 		return MainHall.characters[s];
@@ -141,12 +149,16 @@ public class MainHall {
 	}
 	private void generateCharacters()
 	{
-		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington", "Hey, you're the guys ragoolaman told me about right? I have a job for you...", "You see joe the guard over there? He took money from my shop. Get it back for me, and I'll make you a key for the castle.");//placeholder
+		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington", "Hey, you're the guy ragoolaman told me about right? I have a job for you...", "You see joe the guard over there? He took money from my shop. Get it back for me, and I'll make you a key for the castle.");//placeholder
 		characters[BOB] = bob; //0
 		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _. \nThey will each help you in different ways. Talk to them, and they will give you tasks to complete in order to solicit their help. Talk to me when you have completed the quests.\n", "");
 		characters[RAGOOLAMAN] = ragoolaman; //1
-		micheal = new Character("Micheal", "The slow", "Oi, your that man ragoolaman spoke of eh? There is something funny aboot you indeed... I've got a job for yeh mate!", "You need to get thrown into jail... Start insulting guards, that'll do it. You need to retrieve something important from my cell. To get out you need to bend the bars. They are a very weak material.");
+		micheal = new Character("Micheal", "The slow", "Oi, your that man ragoolaman spoke of eh? There is something funny aboot you indeed... I've got a job for yeh mate!", "You need to get thrown into jail... Start insulting guards, that'll do it. You need to retrieve my favourite knife from my cell. To get out you need to bend the bars. They are a very weak material.");
 		characters[MICHEAL] = micheal;
+		gabriella = new Character("Gabriella", "The poor", "Hullo there, the Prince spoke of yeh, I gots something yeh can do for meh.", "I am very hungry, steal me some food from that table o'er there, but hurry! Don't get caught!");
+		characters[GABRIELLA] = gabriella;
+		thomas = new Character("Thomas", "The back-stabber", "Eh? Who'sh o'er d'er eh? Ragoolaman'sh lad? I gotsh shome work fer yeh...", "My employer hash fired me... I want shome more ale to cope.");
+		characters[THOMAS] = thomas;
 	}
 
 }
