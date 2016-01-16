@@ -24,7 +24,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     public static String leaveVar;
     public static boolean questMode = false;
     public static String curQuest;
-    public static String gameOver = "Congratulations on making it ths far. Unfortunately, the Mad King Isratosh the Gluttonous proved to be a match for you. Play again and see how far you can get." + newline;
+    public static String gameOver = "Congratulations on making it this far. Unfortunately, the Mad King Isratosh the Gluttonous proved to be a match for you. Play again and see how far you can get." + newline;
     public static boolean bobQuest = true;
 	public static boolean initial = false;
     public KFTextBox() {
@@ -431,7 +431,6 @@ public class KFTextBox extends JPanel implements ActionListener {
         }     
     } else 
     {
-    	System.out.println("quest mode engage ayy lmao!");
     	if(curQuest == "bob") 
     	{
     		if(initial == false) {
@@ -475,6 +474,7 @@ public class KFTextBox extends JPanel implements ActionListener {
     		MainHall.isActive = false;
     		Dungeon.isActive = true;
     		curRoom();
+    		textArea.append("You have started micheal's quest, please wait..." + newline);
     		textArea.append("You run up and kick the guard, you are thrown into the cell after being beaten. You fall asleep nearly instantly." + newline);
     		initial = true;
     		} else
@@ -501,6 +501,43 @@ public class KFTextBox extends JPanel implements ActionListener {
     	    	Dungeon.isActive = false;
     	    	curRoom();
     	    }
+    	}
+    	if(curQuest == "gabriella") 
+    	{
+    		if(initial == false) 
+    		{
+    			textArea.append("You have started gabriella's quest, please wait..." + newline);
+    			textArea.append("You see the food on the table, a guard is right beside it facing away from you, you could run, or take your time.");
+    			initial = true;
+    		} else 
+    		{
+    			if(text.contains("run")) 
+    			{
+    				textArea.append("Your quick approach works, you are right behind the guard.");
+    			} else
+    			if(text.contains("slow") || text.contains("time")) 
+    			{
+    				textArea.append("As you slowly make your approach, the guard turns! You are caught red handed! The capture, beat, and kill you for your thievery!");
+    			} else
+    			if(text.contains("take") || text.contains("steal")) 
+    			{
+    				textArea.append("You take some bread, and make all haste back to gabriella." + newline);
+    				textArea.append("You give the food to gabriella, and she says:" + newline);
+    				textArea.append("Thank you sir! I am ever in your debt!" + newline);
+    				textArea.append("Gabriella will now help you when the time is right!" + newline);
+    				questMode = false;
+    				curQuest = null;
+    				initial = false;
+    			}
+    		}
+    	}
+    	if(curQuest == "thomas") 
+    	{
+    		if(initial == false) 
+    		{
+    			textArea.append("You have started micheal's quest, please wait...");
+    			textArea.append("");
+    		}
     	}
     }
     }
