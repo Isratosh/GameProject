@@ -36,9 +36,6 @@ public class ThroneRoom {
 	
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
-		setup();
-		System.out.println(theThroneRoom.isratosh.getFullName());
 	}
 	
 	public static String getItemLongDescs()
