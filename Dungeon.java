@@ -19,7 +19,6 @@ public class Dungeon {
 	private Item rat;
 	private Item door;
 	private Item skull;
-	private Item key;
 	private Item knife;
 	
 	/**
@@ -28,17 +27,11 @@ public class Dungeon {
 	public static void setup() 
 	{
 		theDungeon = new Dungeon();
-		theDungeon.items = new Item[3];
+		theDungeon.items = new Item[4];
 		theDungeon.generateItems();
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//theDungeon = new Dungeon();
-		//theDungeon.items = new Item[3];
-		//theDungeon.generateItems();
-		//System.out.println(getItemShortDescs()); //temp
-		//System.out.println(getItemLongDescs()); //temp
-		//System.out.println(getSpecItem(2).getLongDesc()); //temp
+
 	}
 	
 	public static String getItemLongDescs()
@@ -109,6 +102,7 @@ public class Dungeon {
 		items[RAT] = rat; // 0
 		items[DOOR] = door; // 1
 		items[SKULL] = skull; // 2
+		items[KNIFE] = knife;
 	}
 
 }
