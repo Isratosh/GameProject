@@ -85,7 +85,7 @@ public class MainMenu extends JPanel implements  ActionListener{
 
 	 private static void createAndShowGUI1() throws IOException {
 
-	        JFrame.setDefaultLookAndFeelDecorated(true);
+	        JFrame.setDefaultLookAndFeelDecorated(false);
 	        MainMenu demo = new MainMenu();
 	        frame.setContentPane(demo.createContentPane());
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
