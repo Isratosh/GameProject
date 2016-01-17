@@ -48,12 +48,13 @@ public class Character {
 	{
 		return convText;
 	}
-	public void talkTo()
+	public String talkTo()
 	{
 		if(questText != null)
 		{
 			offering = true;
 		}
+		return convText;
 	}
 	public void acceptQuest()
 	{
