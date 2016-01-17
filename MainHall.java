@@ -38,16 +38,14 @@ public class MainHall {
 	{
 		theMainHall = new MainHall();
 		theMainHall.items = new Item[3];
-		theMainHall.characters = new Character[3];
+		theMainHall.characters = new Character[5];
 		theMainHall.generateItems();
 		theMainHall.generateCharacters();
 	}
 	
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
-		setup();
-		System.out.println(theMainHall.bob.getFullName());
+
 	}
 	
 	public static String getItemLongDescs()
@@ -142,7 +140,7 @@ public class MainHall {
 	{
 		food = new Item("Food", "There is random food on the table.", "Many generic foods crowd a table, you don't know what to call most of them!", "", "", "");
 		dog = new Item("Dog", "There is a dog near a table.", "A dog with a golden coat. It's collar appears to say Molly on it.", "pet dog", "You pet a dog! It woofed happily", "");
-		pillar = new Item("Pillar", "A large wooden chest sits in the corner.", "A wooden chest covered in dust with a large iron lock on the front. You don't know what's inside of it, and you don't remember where you left the key.", "unlock chest", "", "");
+		pillar = new Item("Pillar", "Many large marbly pillars support the ceiling", "", "unlock chest", "", "");
 		items[FOOD] = food; // 0
 		items[DOG] = dog; // 1
 		items[PILLAR] = pillar; // 2
@@ -151,7 +149,7 @@ public class MainHall {
 	{
 		bob = new Character("Bob", "Steinenhoffnerlichtensteindugraffington", "Hey, you're the guy ragoolaman told me about right? I have a job for you...", "You see joe the guard over there? He took money from my shop. Get it back for me, and I'll make you a key for the castle.");//placeholder
 		characters[BOB] = bob; //0
-		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people _, _, _, and _. \nThey will each help you in different ways. Talk to them, and they will give you tasks to complete in order to solicit their help. Talk to me when you have completed the quests.\n", "");
+		ragoolaman = new Character("Prince Ragoolaman", "The ragoolific", "Hey, you're finally here! I was beginning to wonder if you would ever wake up! Now, to business. Among the crowds are four people: bob, micheal, gabriella, and thomas. \nThey will each help you in different ways. Talk to them, and they will give you tasks to complete in order to solicit their help. Talk to me when you have completed the quests.\n", "");
 		characters[RAGOOLAMAN] = ragoolaman; //1
 		micheal = new Character("Micheal", "The slow", "Oi, your that man ragoolaman spoke of eh? There is something funny aboot you indeed... I've got a job for yeh mate!", "You need to get thrown into jail... Start insulting guards, that'll do it. You need to retrieve my favourite knife from my cell. To get out you need to bend the bars. They are a very weak material.");
 		characters[MICHEAL] = micheal;
